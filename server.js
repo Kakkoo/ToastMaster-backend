@@ -1,9 +1,15 @@
 const express = require('express');
 const mongoose = require('mongoose');
+const bodyparser = require('body-parser');
 const users = require('./routes/api/users');
 const main = require("./routes/api/main");
 const record = require("./routes/api/record");
 const app = express();
+
+//Body parser configuration
+app.use(bodyparser.urlencoded({extended: false}));
+app.use(bodyparser.json());
+
 app.get('/', (req, res) => res.send('Hello World!'));
 
 app.use('/api/users', users);
