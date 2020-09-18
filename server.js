@@ -2,6 +2,8 @@ const express = require("express");
 const mongoose = require("mongoose");
 const bodyparser = require("body-parser");
 const passport = require("passport");
+const nodemailer = require("nodemailer");
+const lodash = require("lodash");
 const users = require("./routes/api/users");
 const main = require("./routes/api/main");
 const record = require("./routes/api/record");
@@ -17,6 +19,7 @@ app.get("/", (req, res) => res.send("Hello World"));
 //Use routes
 app.use("/api/users", users);
 app.use("/api/main", main);
+
 app.use("/api/record", record);
 
 const port = 8000;
@@ -26,7 +29,7 @@ app.listen(port, () => console.log(`Server running on port ${port}`));
 const db = require("./config/keys").mongoURI;
 //Connect to mongodb
 mongoose
-  .connect(db)
+  .connect(db, { useUnifiedTopology: true, useNewUrlParser: true })
   .then(() => console.log("MongoDb Connected"))
   .catch((err) => console.log(err));
 
