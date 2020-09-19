@@ -120,23 +120,30 @@ router.post("/forgotPassword", (req, res) => {
       if (!user) {
         return res.status(404).json({ email: "User not found" });
       } else {
-        let newPassword =
-          Math.floor(Math.random() * (999999 - 100000 + 1)) + 100000;
-        console.log(newPassword);
-        //exports.sendmail = (req, res) => {
+        let ID = user._id;
+        let newPassword = JSON.stringify(
+          Math.floor(Math.random() * (999999 - 100000 + 1)) + 100000
+        );
+
+        bcrypt.genSalt(10, (err, salt) => {
+          if (err) throw err;
+          bcrypt.hash(newPassword, salt, (err, hash) => {
+            if (err) throw err;
+            newPassword = hash;
+
+            // update user's password in database
+            User.update({ _id: ID }, { $set: { password: "newPassword" }});
+          });
+        });
 
         // create reusable transporter object using the default SMTP transport
-        var transporter = nodemailer.createTransport(
-          "smtps://lionvihaan@gmail.com:wyspsslrrbpxnlse@smtp.gmail.com"
-        );
+        var transporter = nodemailer.createTransport(keys.smtp);
         // setup e-mail data with unicode symbols
         var mailOptions = {
           from: req.body.name + req.body.email, // sender address
           to: email, // list of receivers
           subject: "Temporary password", // Subject line
-          text:
-            "temporary password:" +
-          newPassword
+          text: "temporary password:" + newPassword,
         };
 
         // send mail with defined transport object
@@ -151,7 +158,47 @@ router.post("/forgotPassword", (req, res) => {
         });
       }
     })
-    .catch();
+    .catch((err) => console.log(err));
 });
+//@route   POST /api/users/changePassword
+//@desc    change user's password
+//@access  Private
+router.post(
+  "/changePassword",
+  passport.authenticate("jwt", { session: false }),
+  async(req, res) => {
+    const email = req.body.email;
+    const oldPassword = req.body.password;
+    let newPassword = req.body.newPassword;
+    User.findOne (async ({ email })
+      .then ((user) => {
+        if (!user) {
+          return res.status(404).json({ email: "User not found" });
+        }
+
+        // Check password
+        var ID = user.id;
+        bcrypt
+          .compare(oldPassword, user.password)
+          .then((isMatch) => {
+            if (isMatch) {
+              //User matched
+              bcrypt.genSalt(10, (err, salt) => {
+                if (err) throw err;
+                bcrypt.hash(newPassword, salt, (err, hash) => {
+                  if (err) throw err;
+                  newPassword = hash;
+                });
+              });
+               User.update({ _id: ID }, { $set:{ password: "newPassword" }});
+            } 
+            
+          })
+          .catch((err) => console.log(err));
+          
+      })
+      .catch((err) => console.log(err)));
+  }
+);
 
 module.exports = router;
