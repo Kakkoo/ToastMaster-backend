@@ -15,6 +15,7 @@ const router = express.Router();
 // @access  Public
 router.post("/register", (req, res) => {
   const { errors, isValid } = validateRegisterInput(req.body);
+  
 
   if (!isValid) {
     return res.status(400).json(errors);
@@ -113,37 +114,39 @@ router.get(
 // @access  Public
 router.post("/forgotPassword", (req, res) => {
   const email = req.body.email;
-
+  let newPassword = JSON.stringify(
+    Math.floor(Math.random() * (999999 - 100000 + 1)) + 100000
+  );
   //Find a user with the email
   User.findOne({ email })
     .then((user) => {
       if (!user) {
         return res.status(404).json({ email: "User not found" });
       } else {
-        let ID = user._id;
-        let newPassword = JSON.stringify(
-          Math.floor(Math.random() * (999999 - 100000 + 1)) + 100000
-        );
-
         bcrypt.genSalt(10, (err, salt) => {
           if (err) throw err;
           bcrypt.hash(newPassword, salt, (err, hash) => {
             if (err) throw err;
             newPassword = hash;
-
-            // update user's password in database
-            User.update({ _id: ID }, { $set: { password: "newPassword" }});
+            User.updateOne(
+              { email: email },
+              { $set: { password: newPassword } }
+            ).then((user) => {
+              res.json(user);
+            });
           });
         });
+        var transporter = nodemailer.createTransport(
+          keys.smtp
+        );
 
-        // create reusable transporter object using the default SMTP transport
-        var transporter = nodemailer.createTransport(keys.smtp);
         // setup e-mail data with unicode symbols
         var mailOptions = {
           from: req.body.name + req.body.email, // sender address
           to: email, // list of receivers
           subject: "Temporary password", // Subject line
-          text: "temporary password:" + newPassword,
+          text:
+           "Temporary Password :" + newPassword
         };
 
         // send mail with defined transport object
@@ -165,17 +168,23 @@ router.post("/forgotPassword", (req, res) => {
 //@access  Private
 router.post(
   "/changePassword",
-  passport.authenticate("jwt", { session: false }),
-  async(req, res) => {
+  //passport.authenticate("jwt", { session: false }),
+  (req, res) => {
     const email = req.body.email;
     const oldPassword = req.body.password;
     let newPassword = req.body.newPassword;
-    User.findOne (async ({ email })
-      .then ((user) => {
+    // bcrypt.genSalt(10, (err, salt) => {
+    //   if (err) throw err;
+    //   bcrypt.hash(newPassword, salt, (err, hash) => {
+    //     if (err) throw err;
+    //     newPassword = hash;
+    //   });
+    // });
+    User.findOne({ email })
+      .then((user) => {
         if (!user) {
           return res.status(404).json({ email: "User not found" });
         }
-
         // Check password
         var ID = user.id;
         bcrypt
@@ -188,16 +197,27 @@ router.post(
                 bcrypt.hash(newPassword, salt, (err, hash) => {
                   if (err) throw err;
                   newPassword = hash;
+                  User.updateOne(
+                    { _id: ID },
+                    { $set: { password: newPassword } }
+                  ).then((user) => {
+                    res.json(user);
+                  });
                 });
               });
-               User.update({ _id: ID }, { $set:{ password: "newPassword" }});
-            } 
-            
+            } else {
+              console.log("couldn't change password");
+            }
+
+            //  User.updateOne({ _id: ID }, { $set: { password: newPassword } }).then(
+            //    (user) => {
+            //      res.json(user);
+            //    }
+            //  );
           })
           .catch((err) => console.log(err));
-          
       })
-      .catch((err) => console.log(err)));
+      .catch((err) => console.log(err));
   }
 );
 
