@@ -23,8 +23,7 @@ const UserSchema = new Schema({
     default: Date.now,
   },
   newPassword: {
-    type: String
-  
+    type: String,
   },
 });
 

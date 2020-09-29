@@ -1,0 +1,28 @@
+
+@media (min-width: 1200px) {
+  .landing{
+    background: url("./img/4ofuswithhearts1200.jpg") no-repeat;
+    height: 675px;
+  }
+}
+@media (min-width: 992px) and (max-width: 1199px) {
+   .landing {
+    background: url("./img/4ofuswithhearts992.jpg") no-repeat;
+    height: 558px;
+  }
+  /* End Home Page */
+}
+@media (min-width: 768px) and (max-width: 991px) {
+  /* Home Page */
+  .landing {
+    background: url("./img/4ofuswithhearts768.jpg") no-repeat;
+    height: 432px;
+  }
+  /* End Home Page */
+}
+@media (max-width: 767px) {
+.landing {
+    margin-top: 30px;
+    padding: 0;
+  }
+}

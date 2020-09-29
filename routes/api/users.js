@@ -4,6 +4,7 @@ const gravatar = require("gravatar");
 const nodemailer = require("nodemailer");
 const lodash = require("lodash");
 const User = require("../../models/User");
+const facebookUser = require("../../models/FacebookUser");
 const jwt = require("jsonwebtoken");
 const passport = require("passport");
 const keys = require("../../config/keys");
@@ -168,18 +169,12 @@ router.post("/forgotPassword", (req, res) => {
 //@access  Private
 router.post(
   "/changePassword",
-  //passport.authenticate("jwt", { session: false }),
+  passport.authenticate("jwt", { session: false }),
   (req, res) => {
     const email = req.body.email;
     const oldPassword = req.body.password;
     let newPassword = req.body.newPassword;
-    // bcrypt.genSalt(10, (err, salt) => {
-    //   if (err) throw err;
-    //   bcrypt.hash(newPassword, salt, (err, hash) => {
-    //     if (err) throw err;
-    //     newPassword = hash;
-    //   });
-    // });
+    
     User.findOne({ email })
       .then((user) => {
         if (!user) {
@@ -208,17 +203,49 @@ router.post(
             } else {
               console.log("couldn't change password");
             }
-
-            //  User.updateOne({ _id: ID }, { $set: { password: newPassword } }).then(
-            //    (user) => {
-            //      res.json(user);
-            //    }
-            //  );
           })
           .catch((err) => console.log(err));
       })
       .catch((err) => console.log(err));
   }
 );
+//@route   POST /api/users/changeAvatar
+//@desc    change or create user's Avatar
+//@access  Private
+router.post(
+  "/changeAvatar",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    const newAvatar = req.body.avatar;
+    User.updateOne({ _id: req.user.id }, { $set: { avatar: newAvatar } }).then(
+      (user) => {
+        res.json(user);
+      }
+    );
+  }
+);
+//@route   POST /api/users/facebookUser
+//@desc    register facebook user
+//@access  Public
+router.post("/facebookRegister", (req, res) => {
+  
+
+  User.findOne({ femail: req.body.femail })
+    .then((user) => {
+      if (!user) {
+          const newfacebookUser = new facebookUser({
+          name: req.body.name,
+          femail: req.body.femail,
+          avatar,
+          password: req.body.password,
+        });
+            newfacebookUser
+              .save()
+              .then((user) => res.json(user))
+              .catch((err) => console.log(err));  
+      }
+    })
+    .catch((err) => console.log(err));
+});
 
 module.exports = router;
