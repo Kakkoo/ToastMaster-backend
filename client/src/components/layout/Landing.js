@@ -21,7 +21,10 @@ class landing extends Component {
                 <Link to="/login" className="btn btn-lg btn-light">
                   Login
                 </Link>
-                
+                <Link to="/Table" className="btn btn-lg btn-light">
+                  Table
+                </Link>
+
                 <Link to="/forgotPassword" className="btn btn-lg btn-light">
                   ForgotPassword
                 </Link>

@@ -8,7 +8,9 @@ import "./App.css";
 import "./styles.css";
 import Register from './components/auth/Register';
 import Login from './components/auth/Login';
-import Facebook from './components/Facebook';
+//import Facebook from './components/Facebook';
+import Table from './components/auth/Table';
+
 
 
 function App() {
@@ -19,9 +21,10 @@ function App() {
         <Route exact path="/" component={Landing} />
         <Route exact path="/register" component={Register} />
         <Route exact path="/login" component={Login} />
+        <Route exact path="/Table" component={Table} />
         <Route exact path="/forgotPassword" component={ForgotPassword} />
-         <p>Facebook Authentication</p>
-        <Facebook /> 
+         {/* <p>Facebook Authentication</p>
+        <Facebook />  */}
         <Footer />
       </div>
     </Router>
