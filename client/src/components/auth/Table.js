@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import ParticipantService from "../../services/ParticipantService";
 import "./Table.css";
 
 class Table extends Component {
@@ -128,6 +129,11 @@ class Table extends Component {
       );
     });
    }
+   componentDidMount(){
+     ParticipantService.getParticipants().then((res) => {
+this.setState({ employees: res.data});
+     });
+   }
  
   render() {
     return (
@@ -136,12 +142,15 @@ class Table extends Component {
         <table id="students">
           <tbody>
             <tr>
-              <td colSpan="2" id ="meetingID">meetingID</td>
+              <td colSpan="2" id="meetingID">
+                meetingID
+              </td>
               {this.renderTableHeader()}
             </tr>
             {this.renderTableData()}
           </tbody>
         </table>
+        
       </div>
     );
   }
