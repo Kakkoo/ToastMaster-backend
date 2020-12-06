@@ -7,6 +7,7 @@ const lodash = require("lodash");
 const users = require("./routes/api/users");
 const main = require("./routes/api/main");
 const record = require("./routes/api/record");
+const path = require("path");
 const app = express();
 
 //Body parser configuration
@@ -14,15 +15,20 @@ app.use(bodyparser.urlencoded({ extended: false }));
 app.use(bodyparser.json());
 
 //First route
-app.get("/", (req, res) => res.send("Hello World"));
+//app.get("/", (req, res) => res.send("Hello World"));
 
 //Use routes
 app.use("/api/users", users);
 app.use("/api/main", main);
-
 app.use("/api/record", record);
 
-const port = 8000;
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static("client/build"));
+  app.get("*", (req, res) => {
+    res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
+  });
+}
+const port = process.env.PORT || 8000;
 app.listen(port, () => console.log(`Server running on port ${port}`));
 
 //Db config

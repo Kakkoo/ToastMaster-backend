@@ -101,4 +101,4 @@ class ChangePassword extends Component {
   }
 }
 
-export default Login;
+export default ChangePassword;

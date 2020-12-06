@@ -38,3 +38,14 @@ const decoded = jwt_decode(token);
        })
      );
 }
+export const logoutUser = () => (dispatch) => {
+  //Remove token from ls
+  localStorage.removeItem("jwtToken");
+  //Remove token from axios header
+  setAuthToken(false);
+  //Reset user in the redux store
+  dispatch({
+    type: SET_USER,
+    payload: {},
+  });
+};

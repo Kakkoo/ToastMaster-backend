@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import axios from "axios";
 import classnames from "classnames";
 
-class Login extends Component {
+class ChangeAvatar extends Component {
   constructor() {
     super();
     //Local state
@@ -65,4 +65,4 @@ class Login extends Component {
   }
 }
 
-export default Login;
+export default ChangeAvatar;

@@ -15,17 +15,21 @@ class landing extends Component {
                   from other developers
                 </p>
                 <hr />
-                <Link to="/register" className="btn btn-lg btn-info mr-2">
+                <Link to="/register" className="btn btn-lg btn-info mr-2" id="register-link">
                   Sign Up
                 </Link>
-                <Link to="/login" className="btn btn-lg btn-light">
+                <Link
+                  to="/login"
+                  className="btn btn-lg btn-light"
+                  id="login-link"
+                >
                   Login
                 </Link>
-                <Link to="/Table" className="btn btn-lg btn-light">
+                <Link to="/Table" className="btn btn-lg btn-light" id="table-link">
                   Table
                 </Link>
 
-                <Link to="/forgotPassword" className="btn btn-lg btn-light">
+                <Link to="/forgotPassword" className="btn btn-lg btn-light" id="forgot-password-link">
                   ForgotPassword
                 </Link>
               </div>
