@@ -17,7 +17,9 @@ import Register from './components/auth/Register';
 import Login from './components/auth/Login';
 import Table from './components/Table/table';
 import store from './store';
-
+import Getrecord from "./components/getrecord/Getrecord";
+import Addnames from "./components/addnames/Addnames";
+import Removename from "./components/removename/Removename";
 
 if (localStorage.jwtToken) {
   //decode
@@ -60,20 +62,20 @@ class App extends Component {
             <Switch>
               <PrivateRoute
                 exact
-                path="/addParticipants"
-                component={ChangePassword}
+                path="/addnamess"
+                component={Addnames}
               />
             </Switch>
 
             <Switch>
               <PrivateRoute
                 exact
-                path="/removeParticipants"
-                component={DeleteAccount}
+                path="/removename"
+                component={Removename}
               />
             </Switch>
             <Switch>
-              <PrivateRoute exact path="/getRecord" component={EditProfile} />
+              <PrivateRoute exact path="/getrecord" component={Getrecord} />
             </Switch>
             <Footer />
           </div>

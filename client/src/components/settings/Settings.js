@@ -14,20 +14,20 @@ class settings extends Component {
               </p>
               <hr />
               <div className="btn-group mb-4" role="group">
-                <Link to="/addParticipants" className="btn btn-light">
+                <Link to="/addnames" className="btn btn-light">
                   <i className="fas fa-user-circle text-info mr-1 dashboard-icon" />{" "}
                   Add Participants &nbsp;&nbsp;&nbsp;
                 </Link>
               </div>
 
               <div className="btn-group mb-4" role="group">
-                <Link to="/removeParticipants" className="btn btn-light">
+                <Link to="/removename" className="btn btn-light">
                   <i className="fas fa-user-circle text-info mr-1 dashboard-icon" />{" "}
                   Remove Participants &nbsp;&nbsp;&nbsp;
                 </Link>
               </div>
               <div className="btn-group mb-4" role="group">
-                <Link to="/getRecord" className="btn btn-light">
+                <Link to="/getrecord" className="btn btn-light">
                   <i className="fas fa-user-circle text-info mr-1 dashboard-icon" />{" "}
                   Get Record &nbsp;&nbsp;&nbsp;
                 </Link>
