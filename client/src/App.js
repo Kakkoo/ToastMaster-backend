@@ -11,6 +11,7 @@ import { SET_USER } from "./actions/types";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import "./App.css";
 import NotFound from "./components/not-found/NotFound";
+import Settings from "./components/settings/Settings";
 import PrivateRoute from "./components/common/PrivateRoute";
 import Register from './components/auth/Register';
 import Login from './components/auth/Login';
@@ -53,6 +54,27 @@ class App extends Component {
             <Route exact path="/table" component={Table} />
             <Route exact path="/forgotPassword" component={ForgotPassword} />
             <Route exact path="/not-found" component={NotFound} />
+            <Switch>
+              <PrivateRoute exact path="/settings" component={Settings} />
+            </Switch>
+            <Switch>
+              <PrivateRoute
+                exact
+                path="/addParticipants"
+                component={ChangePassword}
+              />
+            </Switch>
+
+            <Switch>
+              <PrivateRoute
+                exact
+                path="/removeParticipants"
+                component={DeleteAccount}
+              />
+            </Switch>
+            <Switch>
+              <PrivateRoute exact path="/getRecord" component={EditProfile} />
+            </Switch>
             <Footer />
           </div>
         </Router>
