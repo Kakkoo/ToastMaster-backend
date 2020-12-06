@@ -38,35 +38,19 @@ const decoded = jwt_decode(token);
        })
      );
 }
-// export const AddParticipants = (userData, history) => (dispatch) => {
-//   axios
-//     .post("/api/main/participant", userData)
-//     .then(() => history.push("/table"))
-// };
-export const RemoveParticipants = (userData) => (dispatch) => {
+export const AddParticipants = (userData, history) => (dispatch) => {
   axios
-    .post("/api/main/participant", userData)
-    .then((res) => {
-      //save the token to localstorage
-      const { token } = res.data;
-      localStorage.setItem("jwtToken", token);
-      //set token to auth header
-      setAuthToken(token);
-      //decode token
-      const decoded = jwt_decode(token);
-      //Write user info to redux
-      dispatch({
-        type: SET_USER,
-        payload: decoded,
-      });
-    })
-    .catch((err) =>
-      dispatch({
-        type: SET_ERROR,
-        payload: err.response.data,
-      })
-    );
+    .post("/api/main/addparticipant", userData)
+    .then(() => history.push("/table"))
 };
+
+
+export const RemoveParticipants = (userData, history) => (dispatch) => {
+  axios
+    .post("/api/main/removeparticipant", userData)
+    .then(() => history.push("/table"));
+};
+
 export const logoutUser = () => (dispatch) => {
   //Remove token from ls
   localStorage.removeItem("jwtToken");

@@ -21,27 +21,27 @@ import Getrecord from "./components/getrecord/Getrecord";
 import Addnames from "./components/addnames/Addnames";
 import Removename from "./components/removename/Removename";
 
-if (localStorage.jwtToken) {
-  //decode
-  const decoded = jwt_decode(localStorage.jwtToken);
-  //check the expiry of the token
-  const currentTime = Date.now() / 1000;
-  if (decoded.exp < currentTime) {
-    //Expired
-    //Logout user
-    store.dispatch(logoutUser());
-    //Redirect user to login
-    window.location.href = "/login";
-  }
+// if (localStorage.jwtToken) {
+//   //decode
+//   const decoded = jwt_decode(localStorage.jwtToken);
+//   //check the expiry of the token
+//   const currentTime = Date.now() / 1000;
+//   if (decoded.exp < currentTime) {
+//     //Expired
+//     //Logout user
+//     store.dispatch(logoutUser());
+//     //Redirect user to login
+//     window.location.href = "/login";
+//   }
 
-  //Set auth header
-  setAuthToken(localStorage.jwtToken);
-  //dispatch
-  store.dispatch({
-    type: SET_USER,
-    payload: decoded,
-  });
-}
+//   //Set auth header
+//   setAuthToken(localStorage.jwtToken);
+//   //dispatch
+//   store.dispatch({
+//     type: SET_USER,
+//     payload: decoded,
+//   });
+// }
 
 class App extends Component {
   render() {

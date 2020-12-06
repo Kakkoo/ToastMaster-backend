@@ -39,7 +39,32 @@ router.post(
 // @desc    adding new participants
 // @access  Private
 router.post(
-  "/participant",
+  "/addparticipant",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    const { errors, isValid } = validateParticipantsInput(req.body);
+    if (!isValid) {
+      // Return any errors with 400 status
+      return res.status(400).json(errors);
+    }
+    // Get fields
+     Participants.findOne({ name: req.body.name }).then((user) => {
+    if (user) {
+      return res.status(400).json({ name: "Name already exist" });
+      }
+    const participantFields = {};
+    participantFields.user = req.user.id;
+    if (req.body.name) participantFields.name = req.body.name;
+    new Participants(participantFields)
+      .save()
+      .then((participants) => res.json(participants));
+  }
+);
+// @route   POST /api/main/add Participants
+// @desc    removing participants
+// @access  Private
+router.post(
+  "/removeparticipant",
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
     const { errors, isValid } = validateParticipantsInput(req.body);
