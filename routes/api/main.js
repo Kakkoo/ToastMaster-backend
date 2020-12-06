@@ -52,12 +52,14 @@ router.post(
     if (user) {
       return res.status(400).json({ name: "Name already exist" });
       }
-    const participantFields = {};
-    participantFields.user = req.user.id;
-    if (req.body.name) participantFields.name = req.body.name;
-    new Participants(participantFields)
-      .save()
-      .then((participants) => res.json(participants));
+   const newParticiapnt = new Participants({
+name: req.body.name
+   })
+   newParticiapnt
+     .save()
+     .then((participant) => res.json(participant))
+     .catch();
+    })
   }
 );
 // @route   POST /api/main/add Participants
