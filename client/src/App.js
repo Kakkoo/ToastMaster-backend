@@ -14,7 +14,7 @@ import NotFound from "./components/not-found/NotFound";
 import PrivateRoute from "./components/common/PrivateRoute";
 import Register from './components/auth/Register';
 import Login from './components/auth/Login';
-import Table from './components/auth/Table';
+import Table from './components/Table/table';
 import store from './store';
 
 
@@ -50,7 +50,7 @@ class App extends Component {
             <Route exact path="/" component={Landing} />
             <Route exact path="/register" component={Register} />
             <Route exact path="/login" component={Login} />
-            <Route exact path="/Table" component={Table} />
+            <Route exact path="/table" component={Table} />
             <Route exact path="/forgotPassword" component={ForgotPassword} />
             <Route exact path="/not-found" component={NotFound} />
             <Footer />

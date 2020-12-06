@@ -30,6 +30,7 @@ class Register extends Component {
       name: this.state.name,
       email: this.state.email,
       password: this.state.password,
+
       password2: this.state.password2,
     };
 
@@ -50,9 +51,13 @@ class Register extends Component {
         <div className="container">
           <div className="row">
             <div className="col-md-8 m-auto">
-              <h1 className="display-4 text-center">Sign Up</h1>
+              <h1 id="signup" className="display-4 text-center">
+                Sign Up
+              </h1>
               <p className="lead text-center">
-                Create your DevConnector account
+                <span className="lead text-muted">
+                  Create your CONNEXION account
+                </span>
               </p>
               <form noValidate onSubmit={this.onSubmit}>
                 <div className="form-group">
@@ -119,7 +124,14 @@ class Register extends Component {
                     <div className="invalid-feedback">{errors.password2}</div>
                   )}
                 </div>
-                <input type="submit" className="btn btn-info btn-block mt-4" />
+                <div className="container mx-auto d-flex justify-content-around align-items-center mt-4">
+                  <button
+                    type="submit"
+                    className="btn btn-lg btn-light btn-outline-dark bg-light mx-auto p-3 col-8 "
+                  >
+                    Sign Up
+                  </button>
+                </div>
               </form>
             </div>
           </div>
