@@ -2,10 +2,9 @@ import React, { Component } from "react";
 import classnames from "classnames";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { Link } from "react-router-dom";
 import { RemoveParticipants } from "../../actions/authActions";
 
-class RemoveParticipants extends Component {
+class RParticipants extends Component {
   constructor() {
     super();
     //local state of the component
@@ -28,14 +27,14 @@ class RemoveParticipants extends Component {
       name: this.state.name,
     };
 
-    this.props.AddParticipants(participants);
+    this.props.RemoveParticipants(participants);
   }
 
-  componentDidMount() {
-    if (this.props.auth.isAuthenticated) {
-      this.props.history.push("/table");
-    }
-  }
+  // componentDidMount() {
+  //   if (this.props.auth.isAuthenticated) {
+  //     this.props.history.push("/removename");
+  //   }
+  // }
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.auth.isAuthenticated) {
@@ -91,8 +90,8 @@ class RemoveParticipants extends Component {
   }
 }
 
-RemoveParticipants.propTypes = {
-  RemoveParticipants: PropTypes.func.isRequired,
+RParticipants.propTypes = {
+  RParticipants: PropTypes.func.isRequired,
   errors: PropTypes.object.isRequired,
   auth: PropTypes.object.isRequired,
 };
@@ -103,5 +102,5 @@ const mapStateToProps = (state) => ({
 });
 
 export default connect(mapStateToProps, { RemoveParticipants })(
-  RemoveParticipants
+  RParticipants
 );

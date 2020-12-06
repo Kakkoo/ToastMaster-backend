@@ -12,7 +12,8 @@ class landing extends Component {
                 <p className="lead">
                   {" "}
                   Do you want to practice public speaking, improve your
-                  communication and build leadership skills? We are here o help.t
+                  communication and build leadership skills? We are here o
+                  help.t
                 </p>
                 <hr />
                 <Link
@@ -27,16 +28,9 @@ class landing extends Component {
                   className="btn btn-lg btn-light"
                   id="login-link"
                 >
-                  Login&nbsp;&nbsp;&nbsp;
+                  Login
                 </Link>
-                <Link
-                  to="/Table"
-                  className="btn btn-lg btn-light"
-                  id="table-link"
-                >
-                  Table&nbsp;&nbsp;&nbsp;
-                </Link>
-
+                &nbsp;&nbsp;&nbsp;
                 <Link
                   to="/forgotPassword"
                   className="btn btn-lg btn-light"

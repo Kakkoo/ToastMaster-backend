@@ -38,7 +38,32 @@ const decoded = jwt_decode(token);
        })
      );
 }
-export const AddParticipants = (userData) => (dispatch) => {
+export const AddParticipants = (userData, history) => (dispatch) => {
+  axios
+    .post("/api/main/participant", userData)
+    .then(() => history.push("/table"))
+    // .then((res) => {
+    //   //save the token to localstorage
+    //   const { token } = res.data;
+    //   localStorage.setItem("jwtToken", token);
+    //   //set token to auth header
+    //   setAuthToken(token);
+    //   //decode token
+    //   const decoded = jwt_decode(token);
+    //   //Write user info to redux
+    //   dispatch({
+    //     type: SET_USER,
+    //     payload: decoded,
+    //   });
+    // })
+    .catch((err) => err
+      // dispatch({
+      //   type: SET_ERROR,
+        //payload: err.response.data,
+      //})
+    );
+};
+export const RemoveParticipants = (userData) => (dispatch) => {
   axios
     .post("/api/main/participant", userData)
     .then((res) => {

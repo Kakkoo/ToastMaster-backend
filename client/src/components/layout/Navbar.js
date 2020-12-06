@@ -1,12 +1,15 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import { logoutUser } from "../../actions/authActions";
 class navbar extends Component {
   onLogoutClick(e) {
     e.preventDefault();
     this.props.logoutUser();
   }
   render() {
-    const { isAuthenticated, user } = this.props.auth;
+    const { isAuthenticated } = this.props.auth;
     const guestLinks = (
       <ul className="navbar-nav ml-auto">
         <li className="nav-item nav">
@@ -31,7 +34,7 @@ class navbar extends Component {
             data-toggle="tooltip"
             title="Account Settings"
           >
-            <i className="fa fa-cog"></i>
+            <i className="fa fa-cog">Settings</i>
           </Link>
         </li>
 
@@ -49,7 +52,7 @@ class navbar extends Component {
     return (
       <nav className="navbar navbar-expand-sm navbar-dark bg-dark mb-4">
         <div className="container">
-          <Link className="navbar-brand" to="/">
+          <Link className="navbar-brand" to="/table">
             Toastmasters
           </Link>
           <button
@@ -69,7 +72,7 @@ class navbar extends Component {
     );
   }
 }
-Navbar.propTypes = {
+navbar.propTypes = {
   logoutUser: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
 };
@@ -79,4 +82,4 @@ const mapStateToProps = (state) => ({
   errors: state.errors,
 });
 
-export default connect(mapStateToProps, { logoutUser })(Navbar);
+export default connect(mapStateToProps, { logoutUser })(navbar);

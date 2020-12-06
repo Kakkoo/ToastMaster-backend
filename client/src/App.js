@@ -8,14 +8,14 @@ import jwt_decode from "jwt-decode";
 import { logoutUser } from "./actions/authActions";
 import setAuthToken from "./utils/setAuthToken";
 import { SET_USER } from "./actions/types";
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import "./App.css";
 import NotFound from "./components/not-found/NotFound";
 import Settings from "./components/settings/Settings";
 import PrivateRoute from "./components/common/PrivateRoute";
 import Register from './components/auth/Register';
 import Login from './components/auth/Login';
-import Table from './components/Table/table';
+import Table from './components/table/Table';
 import store from './store';
 import Getrecord from "./components/getrecord/Getrecord";
 import Addnames from "./components/addnames/Addnames";
@@ -53,26 +53,20 @@ class App extends Component {
             <Route exact path="/" component={Landing} />
             <Route exact path="/register" component={Register} />
             <Route exact path="/login" component={Login} />
-            <Route exact path="/table" component={Table} />
             <Route exact path="/forgotPassword" component={ForgotPassword} />
             <Route exact path="/not-found" component={NotFound} />
             <Switch>
               <PrivateRoute exact path="/settings" component={Settings} />
             </Switch>
             <Switch>
-              <PrivateRoute
-                exact
-                path="/addnamess"
-                component={Addnames}
-              />
+              <PrivateRoute exact path="/addnames" component={Addnames} />
             </Switch>
 
             <Switch>
-              <PrivateRoute
-                exact
-                path="/removename"
-                component={Removename}
-              />
+              <PrivateRoute exact path="/removename" component={Removename} />
+            </Switch>
+            <Switch>
+              <PrivateRoute exact path="/table" component={Table} />
             </Switch>
             <Switch>
               <PrivateRoute exact path="/getrecord" component={Getrecord} />

@@ -2,10 +2,9 @@ import React, { Component } from "react";
 import classnames from "classnames";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { Link } from "react-router-dom";
 import { AddParticipants } from "../../actions/authActions";
 
-class AddParticipants extends Component {
+class participants extends Component {
   constructor() {
     super();
     //local state of the component
@@ -33,7 +32,7 @@ class AddParticipants extends Component {
 
   componentDidMount() {
     if (this.props.auth.isAuthenticated) {
-      this.props.history.push("/table");
+      this.props.history.push("/addnames");
     }
   }
 
@@ -91,8 +90,8 @@ class AddParticipants extends Component {
   }
 }
 
-AddParticipants.propTypes = {
-  AddParticipants: PropTypes.func.isRequired,
+participants.propTypes = {
+  participants: PropTypes.func.isRequired,
   errors: PropTypes.object.isRequired,
   auth: PropTypes.object.isRequired,
 };
@@ -102,4 +101,4 @@ const mapStateToProps = (state) => ({
   auth: state.auth,
 });
 
-export default connect(mapStateToProps, { AddParticipants })(AddParticipants);
+export default connect(mapStateToProps, { AddParticipants })(participants);
