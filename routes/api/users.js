@@ -4,11 +4,12 @@ const gravatar = require("gravatar");
 const nodemailer = require("nodemailer");
 const lodash = require("lodash");
 const User = require("../../models/User");
-const facebookUser = require("../../models/FacebookUser");
+//const facebookUser = require("../../models/FacebookUser");
 const jwt = require("jsonwebtoken");
 const passport = require("passport");
 const keys = require("../../config/keys");
 const validateRegisterInput = require("../../validation/register");
+const validateLoginInput = require("../../validation/login");
 const router = express.Router();
 
 // @route   POST /api/users/register
@@ -60,15 +61,20 @@ router.post("/register", (req, res) => {
 // @desc    Login user
 // @access  Public
 router.post("/login", (req, res) => {
+  const { errors, isValid } = validateLoginInput(req.body);
+
+  if (!isValid) {
+    return res.status(400).json(errors);
+  }
   const email = req.body.email;
   const password = req.body.password;
 
   //Find a user with the email
   User.findOne({ email })
     .then((user) => {
-      if (!user) {
+      if (!user) 
         return res.status(404).json({ email: "User not found" });
-      }
+      
 
       // Check password
       bcrypt
