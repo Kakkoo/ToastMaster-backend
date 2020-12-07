@@ -62,6 +62,27 @@ name: req.body.name
     })
   }
 );
+// @route   GET /api/main/allParticipants
+// @desc    all participants
+// @access  Private
+router.get(
+  "/allparticipants",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    const { errors, isValid } = validateParticipantsInput(req.body);
+    if (!isValid) {
+      // Return any errors with 400 status
+      return res.status(400).json(errors);
+    }
+    // Get fields
+     Participants.find().then((participants) => {
+       if (!participants) {
+         return res.status(400).json({ name: "No participants" });
+       }
+       return res.status(200).json(participants);
+     });
+  }
+);
 // @route   POST /api/main/add Participants
 // @desc    removing participants
 // @access  Private

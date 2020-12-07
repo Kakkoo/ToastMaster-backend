@@ -5,16 +5,20 @@ import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { PlusMinus } from "../../actions/authActions";
 
-class table1 extends Component {
+class table extends Component {
   constructor() {
     super();
     //local state of the component
     this.state = {
-     
+     name: "",
+     meetingID: "",
+     fillerWord: "",
+     count: "",
+     errors: {},
     };
 
     this.onChange = this.onChange.bind(this);
-    this.onClick = this.onSubmit.bind(this);
+    this.onClick = this.onClick.bind(this);
   }
 
   onChange(e) {
@@ -24,8 +28,10 @@ class table1 extends Component {
   onClick(e) {
     e.preventDefault();
     const user = {
-      email: this.state.email,
-      password: this.state.password,
+      name: this.state.name,
+      meetingID: this.state.meetingID,
+      fillerWord: this.state.fillerWord,
+      count: this.state.count,
     };
 
     this.props.PlusMinus(user);
@@ -65,4 +71,4 @@ const mapStateToProps = (state) => ({
   auth: state.auth,
 });
 
-export default connect(mapStateToProps, { PlusMinus })(table1);
+export default connect(mapStateToProps, { PlusMinus })(table);

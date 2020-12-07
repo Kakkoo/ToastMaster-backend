@@ -42,13 +42,37 @@ export const AddParticipants = (userData, history) => (dispatch) => {
   axios
     .post("/api/main/addparticipant", userData)
     .then(() => history.push("/table"))
+    .catch((err) =>
+      dispatch({
+        type: SET_ERROR,
+        payload: err.response.data,
+      })
+    );
 };
 
 
 export const RemoveParticipants = (userData, history) => (dispatch) => {
   axios
     .post("/api/main/removeparticipant", userData)
-    .then(() => history.push("/table"));
+    .then(() => history.push("/table"))
+    .catch((err) =>
+      dispatch({
+        type: SET_ERROR,
+        payload: err.response.data,
+      })
+    );
+};
+
+export const AddRecord = (userData, history) => (dispatch) => {
+  axios
+    .post("/api/main/", userData)
+    .then(() => history.push("/table"))
+    .catch((err) =>
+      dispatch({
+        type: SET_ERROR,
+        payload: err.response.data,
+      })
+    );
 };
 
 export const logoutUser = () => (dispatch) => {
