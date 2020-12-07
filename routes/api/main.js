@@ -48,18 +48,18 @@ router.post(
       return res.status(400).json(errors);
     }
     // Get fields
-     Participants.findOne({ name: req.body.name }).then((user) => {
-    if (user) {
-      return res.status(400).json({ name: "Name already exist" });
+    Participants.findOne({ name: req.body.name }).then((user) => {
+      if (user) {
+        return res.status(400).json({ name: "Name already exist" });
       }
-   const newParticiapnt = new Participants({
-name: req.body.name
-   })
-   newParticiapnt
-     .save()
-     .then((participant) => res.json(participant))
-     .catch();
-    })
+      const newParticiapnt = new Participants({
+        name: req.body.name,
+      });
+      newParticiapnt
+        .save()
+        .then((participant) => res.json(participant))
+        .catch();
+    });
   }
 );
 // @route   GET /api/main/allParticipants
@@ -68,19 +68,21 @@ name: req.body.name
 router.get(
   "/allparticipants",
   passport.authenticate("jwt", { session: false }),
-  (req, res) => {
-    const { errors, isValid } = validateParticipantsInput(req.body);
-    if (!isValid) {
-      // Return any errors with 400 status
-      return res.status(400).json(errors);
-    }
-    // Get fields
-     Participants.find().then((participants) => {
-       if (!participants) {
-         return res.status(400).json({ name: "No participants" });
-       }
-       return res.status(200).json(participants);
-     });
+  function (req, res) {
+    Participants.find().then(
+      (participants) => {
+        if (!participants) {
+          return res.status(400).json({ name: "No participants" });
+        }
+        console.log("till here");
+        let names = [];
+        for(let i = 0; i < participants.length; i++){
+names.push(participants[i].name);
+        }
+        return res.status(200).json(participants);
+        //return res.status(200).json(names);
+      }
+    );
   }
 );
 // @route   POST /api/main/add Participants

@@ -3,18 +3,20 @@ import classnames from "classnames";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
+import axios from "axios";
+import ReactTable from "react-table";
 import { PlusMinus } from "../../actions/authActions";
-
+import "./Table.css";
 class table extends Component {
   constructor() {
     super();
     //local state of the component
     this.state = {
-     name: "",
-     meetingID: "",
-     fillerWord: "",
-     count: "",
-     errors: {},
+      name: "",
+      meetingID: "",
+      fillerWord: "",
+      count: "",
+      errors: {},
     };
 
     this.onChange = this.onChange.bind(this);
@@ -36,26 +38,52 @@ class table extends Component {
 
     this.props.PlusMinus(user);
   }
-
+  state = {
+    items: [],
+    errorMessage: "",
+  };
   componentDidMount() {
-    if (this.props.auth.isAuthenticated) {
-      this.props.history.push("/table");
-    }
+    axios
+      .get("/api/main/allparticipants")
+      .then((response) => this.setState({ items: response.data }))
+      .catch((err) => {
+        this.setState({ errorMessage: err.message });
+      });
   }
 
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.auth.isAuthenticated) {
-      this.props.history.push("/table");
-    }
-    if (nextProps.errors) {
-      this.setState({ errors: nextProps.errors });
-    }
-  }
+
 
   render() {
     const { errors } = this.state;
+    const columns = [
+      {
+        Header: "User ID",
+        accessor: "userId",
+      },
+      {
+        Header: "ID",
+        accessor: "id",
+      },
+      {
+        Header: "Title",
+        accessor: "title",
+        sortable: false,
+        filterable: false,
+      },
+      {
+        Header: "User ID",
+        accessor: "body",
+        sortable: false,
+        filterable: false,
+      },
+    ];
     return (
-    <div></div>
+      <ReactTable
+      columns={columns}
+      data = {this.state.posts}
+      >
+
+      </ReactTable>
     );
   }
 }
