@@ -16,7 +16,6 @@ class Participants extends Component {
     //Local state
     this.state = {
       name: "",
-
       errors: {},
     };
 

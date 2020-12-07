@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
+const participants = require("../validation/participants");
 //Create schema
 const UserSchema = new Schema({
   user: {

@@ -67,7 +67,7 @@ router.post(
 // @access  Private
 router.get(
   "/allparticipants",
- //passport.authenticate("jwt", { session: false }),
+ passport.authenticate("jwt", { session: false }),
   function (req, res) {
     Participants.find().then((participants) => {
       if (!participants) {
@@ -78,8 +78,8 @@ router.get(
       for (let i = 0; i < participants.length; i++) {
         names.push(participants[i].name);
       }
-      return res.status(200).json(participants);
-      //return res.status(200).json(names);
+      //return res.status(200).json(participants);
+      return res.status(200).json(names);
     });
   }
 );
