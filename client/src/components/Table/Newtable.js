@@ -8,10 +8,10 @@ export default class Newtable extends Component {
   };
   async componentDidMount() {
     const url = "http://localhost:8000/api/main/allparticipants";
-    const response = await fetch(url);
-    const DATA = await response.json();
-    //console.log(DATA);
-   // this.setState({ person: DATA, loading: false });
+    const R = await fetch(url);
+    const DATA = await R.json();
+    console.log(DATA);
+    this.setState({ person: DATA.name, loading: false });
   }
   render() {
      const columns = [
