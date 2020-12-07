@@ -10,10 +10,42 @@ const UserSchema = new Schema({
     type: String,
     required: true,
   },
-  date: {
-    type: Date,
-    default: Date.now,
+  ah: {
+    type: String,
+    default: "ah",
   },
+  ah: {
+    type: String,
+    default: "ah",
+  },
+  um: {
+    type: String,
+    default: "um",
+  },
+  so: {
+    type: String,
+    default: "so",
+  },
+  but: {
+    type: String,
+    default: "but",
+  },
+  well: {
+    type: String,
+    default: "well",
+  },
+  ok: {
+    type: String,
+    default: "ok",
+  },
+  falseStart: {
+    type: String,
+    default: "falseStart",
+  },
+  // date: {
+  //   type: Date,
+  //   default: Date.now,
+  // },
 });
 
 module.exports = Participants = mongoose.model("ParticipantNames", UserSchema);

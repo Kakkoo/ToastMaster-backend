@@ -13,7 +13,10 @@ const app = express();
 //Body parser configuration
 app.use(bodyparser.urlencoded({ extended: false }));
 app.use(bodyparser.json());
-
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', '*');
+  next();
+});
 //First route
 //app.get("/", (req, res) => res.send("Hello World"));
 

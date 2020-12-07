@@ -67,22 +67,20 @@ router.post(
 // @access  Private
 router.get(
   "/allparticipants",
-  passport.authenticate("jwt", { session: false }),
+ //passport.authenticate("jwt", { session: false }),
   function (req, res) {
-    Participants.find().then(
-      (participants) => {
-        if (!participants) {
-          return res.status(400).json({ name: "No participants" });
-        }
-        console.log("till here");
-        let names = [];
-        for(let i = 0; i < participants.length; i++){
-names.push(participants[i].name);
-        }
-        return res.status(200).json(participants);
-        //return res.status(200).json(names);
+    Participants.find().then((participants) => {
+      if (!participants) {
+        return res.status(400).json({ name: "No participants" });
       }
-    );
+      console.log("till here");
+      let names = [];
+      for (let i = 0; i < participants.length; i++) {
+        names.push(participants[i].name);
+      }
+      return res.status(200).json(participants);
+      //return res.status(200).json(names);
+    });
   }
 );
 // @route   POST /api/main/add Participants

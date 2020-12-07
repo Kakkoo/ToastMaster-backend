@@ -7,17 +7,33 @@ import classnames from "classnames";
 import { AddParticipants } from "../../actions/authActions";
 
 class Participants extends Component {
+  state = {
+    loading: true,
+    person: null,
+  };
   constructor() {
     super();
     //Local state
     this.state = {
       name: "",
-      
+
       errors: {},
     };
 
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
+  }
+  async componentDidMount() {
+    const url = "http://localhost:8000/api/main/allparticipants";
+    const response = await fetch(url);
+    const data = await response.json();
+    let names = [];
+    for (let i = 0; i < data.length; i++) {
+      names.push(data[i].name);
+    };
+    names = names.join(",___  ");
+    this.setState({ person: names, loading: false });
+    //console.log(data[0].name);
   }
 
   onChange(e) {
@@ -42,6 +58,16 @@ class Participants extends Component {
     const { errors } = this.state;
     return (
       <div className="AddParticipants">
+        <div>
+          {this.state.loading || !this.state.person ? (
+            <div>loading...</div>
+          ) : (
+            <div>
+              <div>{this.state.person}</div>
+              
+            </div>
+          )}
+        </div>
         <div className="container">
           <div className="row">
             <div className="col-md-8 m-auto">
