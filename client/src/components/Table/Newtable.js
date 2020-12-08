@@ -1,66 +1,65 @@
 import React, { Component } from "react";
-import ReactTable from "react-table";
-
-export default class Newtable extends Component {
-  state = {
+import "./Table.css";
+class Newtable extends Component {
+  constructor() {
+    super();
+    this.state = {
+      fillerwords: {
+        AH: "aa",
+        UM: "um",
+        SO: "hm",
+        BUT: "tthis",
+        WELL: "that",
+        OK: "ok",
+        FALSE_START: "falseStart",
+        WORD_REPITITOR: "word_repititor",
+        OTHER: "other",
+      },
+    };
+  }
+  setState = {
     loading: true,
-    posts: []
+    person: null,
   };
+  renderTableHeader() {
+    let header = Object.keys(this.state.fillerwords);
+    return header.map((key, index) => {
+      return <th key={index}>{key} </th>;
+    });
+  }
+  renderTableData() {
+    let header = Object.keys(this.state.fillerwords);
+    return header.map((key, index) => {
+      return (
+       
+          <td key={index}>{key} </td>
+        
+      );
+    });
+  }
+
   async componentDidMount() {
     const url = "http://localhost:8000/api/main/allparticipants";
-    // const R = await fetch(url);
-    // const DATA = await R.json();
-    // console.log(DATA);
-    // this.setState({ person: DATA, loading: false });
-    fetch(url, {method: 'GET'}).then(response => response.json()).then(posts => {this.setState({posts: posts})})
+    const R = await fetch(url);
+    const DATA = await R.json();
+    console.log(DATA);
+    this.setState({ person: DATA, loading: false });
   }
   render() {
-     const columns = [
-       {
-         Header: "Name",
-         accessor: "name",
-       },
-       {
-         Header: "False Start",
-         accessor: "falseStart",
-       },
-       {
-         Header: "OK",
-         accessor: "ok",
-       },
-       {
-         Header: "Well",
-         accessor: "well",
-       },
-       {
-         Header: "But",
-         accessor: "but",
-       },
-       {
-         Header: "So",
-         accessor: "so",
-       },
-       {
-         Header: "Um",
-         accessor: "um",
-       },
-       {
-         Header: "Ah",
-         accessor: "ah",
-       },
-     ];
     return (
-      // <div>
-      //   {this.state.loading || !this.state.person ? (
-      //     <div>loading...</div>
-      //   ) : (
-      //     <div>
-            <ReactTable columns={columns} data={this.state.posts}></ReactTable>
-      //       <div>{this.state.person.name}</div>
-      //       <div>{this.state.person._id}</div>
-      //     </div>
-      //   )}
-      // </div>
+      <div>
+        <h1 id="title">Toast Master Table</h1>
+        <table id="students">
+          <tbody>
+            <tr>
+              <td id="meetingID">{Date()}</td>
+              {this.renderTableHeader()}
+            </tr>
+            {this.renderTableData()}
+          </tbody>
+        </table>
+      </div>
     );
   }
 }
+export default Newtable;
