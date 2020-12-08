@@ -34,13 +34,24 @@ const decoded = jwt_decode(token);
      .catch((err) =>
        dispatch({
          type: SET_ERROR,
-         payload: err.response.data,
+         //payload: err.response.data,
        })
      );
 }
 export const AddParticipants = (userData, history) => (dispatch) => {
   axios
     .post("/api/main/addparticipant", userData)
+    .then(() => history.push("/table"))
+    .catch((err) =>
+      dispatch({
+        type: SET_ERROR,
+        payload: err.response.data,
+      })
+    );
+};
+export const addPlusCount = (userData, history) => (dispatch) => {
+  axios
+    .post("/api/main/", userData)
     .then(() => history.push("/table"))
     .catch((err) =>
       dispatch({

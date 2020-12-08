@@ -7,8 +7,8 @@ const UserSchema = new Schema({
     ref: "ToastMasterUsers",
   },
   meetingID: {
-    type: String,
-    required: true,
+    type: Date,
+    default: Date.now,
   },
   name: {
     type: String,
@@ -22,10 +22,7 @@ const UserSchema = new Schema({
     type: Number,
     required: true,
   },
-  date: {
-    type: Date,
-    default: Date.now,
-  },
+ 
 });
 
 module.exports = Main = mongoose.model("ParticipantRecords", UserSchema);

@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import "./Table.css";
+import { connect } from "react-redux";
+import {addPlusCount} from "../../actions/authActions";
 class Newtable extends Component {
   constructor() {
     super();
@@ -17,42 +19,233 @@ class Newtable extends Component {
         OTHER: "other",
       },
       person: null,
+      meetingID: "",
+      name: "",
+      fillerWord: "",
+      count: null,
     };
+    //this.onClick = this.onClick.bind(this);
   }
   renderTableHeader() {
     let header = Object.keys(this.state.fillerwords);
     return header.map((key, index) => {
       return (
-        <th colSpan={2}  key={index}>
+        <th colSpan={2} key={index}>
           {key}{" "}
         </th>
       );
     });
   }
+  minusClicked(e) {
+    e.preventDefault();
+    const minusData = {
+      meetingID: this.state.meetingID,
+      name: this.state.name,
+      fillerWord: this.state.fillerWord,
+      count: this.state.count,
+    };
+    this.props.addMinusCount(minusData, this.props.history);
+    alert("- Clicked");
+  }
+  plusClicked( plusData, e) {
+    e.preventDefault();
+     //plusData = {
+      // meetingID: this.state.meetingID,
+      // name: this.state.name,
+      // fillerWord: this.state.fillerWord,
+      // count: this.state.count,
+    //};
+    this.props.addPlusCount(plusData, this.props.history);
+    alert("+ Clicked");
+  }
   renderTableData() {
     return this.state.person.map((person, index) => {
-      const { name, ah,AH, um,UM, so,SO, but,BUT, well,WELL, ok,OK, falseStart,FALSESTART, wordRepititor,WORDREPITITOR, other,OTHER } = person; //destructuring
+      const {
+        name,
+        ah,
+        AH,
+        um,
+        UM,
+        so,
+        SO,
+        but,
+        BUT,
+        well,
+        WELL,
+        ok,
+        OK,
+        falseStart,
+        FALSESTART,
+        wordRepititor,
+        WORDREPITITOR,
+        other,
+        OTHER,
+      } = person; //destructuring
       return (
         <tr key={name}>
           <td>{name}</td>
-          <td>{ah}</td>
-          <td>{AH}</td>
-          <td>{um}</td>
-          <td>{UM}</td>
-          <td>{so}</td>
-          <td>{SO}</td>
-          <td>{but}</td>
-          <td>{BUT}</td>
-          <td>{well}</td>
-          <td>{WELL}</td>
-          <td>{ok}</td>
-          <td>{OK}</td>
-          <td>{falseStart}</td>
-          <td>{FALSESTART}</td>
-          <td>{wordRepititor}</td>
-          <td>{WORDREPITITOR}</td>
-          <td>{other}</td>
-          <td>{OTHER}</td>
+          <td
+            onClick={this.plusClicked.bind(this, {
+              name: "how to get value here",
+              fillerWord: "ah",
+              count: 1,
+            })}
+          >
+            {ah}
+          </td>
+          <td
+            onClick={this.plusClicked.bind(this, {
+              name: "HOW",
+              fillerWord: "ah",
+              count: -1,
+            })}
+          >
+            {AH}
+          </td>
+          <td
+            onClick={this.plusClicked.bind(this, {
+              name: "HOW",
+              fillerWord: "um",
+              count: 1,
+            })}
+          >
+            {um}
+          </td>
+          <td
+            onClick={this.plusClicked.bind(this, {
+              name: "HOW",
+              fillerWord: "um",
+              count: -1,
+            })}
+          >
+            {UM}
+          </td>
+          <td
+            onClick={this.plusClicked.bind(this, {
+              name: "HOW",
+              fillerWord: "so",
+              count: 1,
+            })}
+          >
+            {so}
+          </td>
+          <td
+            onClick={this.plusClicked.bind(this, {
+              name: "HOW",
+              fillerWord: "so",
+              count: -1,
+            })}
+          >
+            {SO}
+          </td>
+          <td
+            onClick={this.plusClicked.bind(this, {
+              name: "HOW",
+              fillerWord: "but",
+              count: 1,
+            })}
+          >
+            {but}
+          </td>
+          <td
+            onClick={this.plusClicked.bind(this, {
+              name: "HOW",
+              fillerWord: "but",
+              count: -1,
+            })}
+          >
+            {BUT}
+          </td>
+          <td
+            onClick={this.plusClicked.bind(this, {
+              name: "HOW",
+              fillerWord: "well",
+              count: 1,
+            })}
+          >
+            {well}
+          </td>
+          <td
+            onClick={this.plusClicked.bind(this, {
+              name: "HOW",
+              fillerWord: "well",
+              count: -1,
+            })}
+          >
+            {WELL}
+          </td>
+          <td
+            onClick={this.plusClicked.bind(this, {
+              name: "HOW",
+              fillerWord: "ok",
+              count: 1,
+            })}
+          >
+            {ok}
+          </td>
+          <td
+            onClick={this.plusClicked.bind(this, {
+              name: "HOW",
+              fillerWord: "ok",
+              count: -1,
+            })}
+          >
+            {OK}
+          </td>
+          <td
+            onClick={this.plusClicked.bind(this, {
+              name: "HOW",
+              fillerWord: "falseStart",
+              count: 1,
+            })}
+          >
+            {falseStart}
+          </td>
+          <td
+            onClick={this.plusClicked.bind(this, {
+              name: "HOW",
+              fillerWord: "falseStart",
+              count: -1,
+            })}
+          >
+            {FALSESTART}
+          </td>
+          <td
+            onClick={this.plusClicked.bind(this, {
+              name: "HOW",
+              fillerWord: "wordRepititor",
+              count: 1,
+            })}
+          >
+            {wordRepititor}
+          </td>
+          <td
+            onClick={this.plusClicked.bind(this, {
+              name: "HOW",
+              fillerWord: "wordRepititor",
+              count: -1,
+            })}
+          >
+            {WORDREPITITOR}
+          </td>
+          <td
+            onClick={this.plusClicked.bind(this, {
+              name: "HOW",
+              fillerWord: "other",
+              count: 1,
+            })}
+          >
+            {other}
+          </td>
+          <td
+            onClick={this.plusClicked.bind(this, {
+              name: "HOW",
+              fillerWord: "other",
+              count: -1,
+            })}
+          >
+            {OTHER}
+          </td>
         </tr>
       );
     });
@@ -75,9 +268,7 @@ class Newtable extends Component {
             <table id="students">
               <tbody>
                 <tr>
-                  <td id="meetingID">
-                    {Date()}
-                  </td>
+                  <td id="meetingID">{Date()}</td>
                   {this.renderTableHeader()}
                 </tr>
                 {this.renderTableData()}
@@ -89,4 +280,15 @@ class Newtable extends Component {
     );
   }
 }
-export default Newtable;
+addPlusCount.propTypes = {
+  // addPlusCount: PropTypes.func.isRequired,
+  // errors: PropTypes.object.isRequired,
+  // auth: PropTypes.object.isRequired,
+};
+
+const mapStateToProps = (state) => ({
+  //errors: state.errors,
+  //auth: state.auth,
+});
+
+export default connect(mapStateToProps, { addPlusCount })(Newtable);
