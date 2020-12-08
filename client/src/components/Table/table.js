@@ -25,7 +25,7 @@ class Table extends Component {
           That: "-",
         },
         {
-          id: 1,
+          id: 2,
           name: "Tasif",
           aa: "+",
           Aa: "-",
@@ -39,7 +39,7 @@ class Table extends Component {
           That: "-",
         },
         {
-          id: 2,
+          id: 3,
           name: "Ali",
           aa: "+",
           Aa: "-",
@@ -53,7 +53,7 @@ class Table extends Component {
           That: "-",
         },
         {
-          id: 3,
+          id: 4,
           name: "Saad",
           aa: "+",
           Aa: "-",
@@ -67,7 +67,7 @@ class Table extends Component {
           That: "-",
         },
         {
-          id: 4,
+          id: 5,
           name: "Asad",
           aa: "+",
           Aa: "-",
@@ -129,12 +129,6 @@ class Table extends Component {
       );
     });
    }
-   componentDidMount(){
-     ParticipantService.getParticipants().then((res) => {
-this.setState({ employees: res.data});
-     });
-   }
- 
   render() {
     return (
       <div>

@@ -4,6 +4,7 @@ class Newtable extends Component {
   constructor() {
     super();
     this.state = {
+      loading: true,
       fillerwords: {
         AH: "aa",
         UM: "um",
@@ -15,13 +16,17 @@ class Newtable extends Component {
         WORD_REPITITOR: "word_repititor",
         OTHER: "other",
       },
-      person: [],
+      person: null,
     };
   }
   renderTableHeader() {
     let header = Object.keys(this.state.fillerwords);
     return header.map((key, index) => {
-      return <th key={index}>{key} </th>;
+      return (
+        <th colSpan={2}  key={index}>
+          {key}{" "}
+        </th>
+      );
     });
   }
   renderTableData() {
@@ -45,22 +50,30 @@ class Newtable extends Component {
     const url = "http://localhost:8000/api/main/allparticipants";
     const Response = await fetch(url);
     const DATA = await Response.json();
-    console.log(DATA);
-    this.state.person = DATA;
+    this.setState({ person: DATA, loading: false });
   }
   render() {
     return (
       <div>
-        <h1 id="title">Toast Master Table</h1>
-        <table id="students">
-          <tbody>
-            <tr>
-              <td id="meetingID">{Date()}</td>
-              {this.renderTableHeader()}
-            </tr>
-            {this.renderTableData()}
-          </tbody>
-        </table>
+        {this.state.loading || !this.state.person ? (
+          <div>TABLE...</div>
+        ) : (
+          <div>
+            {" "}
+            <h1 id="title">Toast Master Table</h1>
+            <table id="students">
+              <tbody>
+                <tr>
+                  <td id="meetingID">
+                    {Date()}
+                  </td>
+                  {this.renderTableHeader()}
+                </tr>
+                {this.renderTableData()}
+              </tbody>
+            </table>
+          </div>
+        )}
       </div>
     );
   }

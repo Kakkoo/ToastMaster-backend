@@ -43,6 +43,14 @@ const UserSchema = new Schema({
     type: String,
     default: "falseStart",
   },
+  wordRepititor: {
+    type: String,
+    default: "wordRepititor"
+  },
+  other: {
+    type: String,
+    default: "other"
+  }
   // date: {
   //   type: Date,
   //   default: Date.now,
