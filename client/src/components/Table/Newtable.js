@@ -4,14 +4,15 @@ import ReactTable from "react-table";
 export default class Newtable extends Component {
   state = {
     loading: true,
-    person: null
+    posts: []
   };
   async componentDidMount() {
     const url = "http://localhost:8000/api/main/allparticipants";
-    const R = await fetch(url);
-    const DATA = await R.json();
-    console.log(DATA);
-    this.setState({ person: DATA.name, loading: false });
+    // const R = await fetch(url);
+    // const DATA = await R.json();
+    // console.log(DATA);
+    // this.setState({ person: DATA, loading: false });
+    fetch(url, {method: 'GET'}).then(response => response.json()).then(posts => {this.setState({posts: posts})})
   }
   render() {
      const columns = [
@@ -54,7 +55,7 @@ export default class Newtable extends Component {
       //     <div>loading...</div>
       //   ) : (
       //     <div>
-            <ReactTable columns={columns} data={this.state.person}></ReactTable>
+            <ReactTable columns={columns} data={this.state.posts}></ReactTable>
       //       <div>{this.state.person.name}</div>
       //       <div>{this.state.person._id}</div>
       //     </div>
