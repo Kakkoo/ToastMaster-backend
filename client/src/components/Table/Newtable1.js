@@ -31,19 +31,28 @@ class Newtable extends Component {
   }
   renderTableData() {
     return this.state.person.map((person, index) => {
-      const { name, ah, um, so, but, well, ok, falseStart, wordRepititor, other } = person; //destructuring
+      const { name, ah,AH, um,UM, so,SO, but,BUT, well,WELL, ok,OK, falseStart,FALSESTART, wordRepititor,WORDREPITITOR, other,OTHER } = person; //destructuring
       return (
         <tr key={name}>
           <td>{name}</td>
           <td>{ah}</td>
+          <td>{AH}</td>
           <td>{um}</td>
+          <td>{UM}</td>
           <td>{so}</td>
+          <td>{SO}</td>
           <td>{but}</td>
+          <td>{BUT}</td>
           <td>{well}</td>
+          <td>{WELL}</td>
           <td>{ok}</td>
+          <td>{OK}</td>
           <td>{falseStart}</td>
-      <td>{wordRepititor}</td>
-      <td>{other}</td>
+          <td>{FALSESTART}</td>
+          <td>{wordRepititor}</td>
+          <td>{WORDREPITITOR}</td>
+          <td>{other}</td>
+          <td>{OTHER}</td>
         </tr>
       );
     });
