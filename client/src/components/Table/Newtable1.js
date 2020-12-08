@@ -31,7 +31,7 @@ class Newtable extends Component {
   }
   renderTableData() {
     return this.state.person.map((person, index) => {
-      const { name, ah, um, so, but, well, ok, falseStart } = person; //destructuring
+      const { name, ah, um, so, but, well, ok, falseStart, wordRepititor, other } = person; //destructuring
       return (
         <tr key={name}>
           <td>{name}</td>
@@ -42,6 +42,8 @@ class Newtable extends Component {
           <td>{well}</td>
           <td>{ok}</td>
           <td>{falseStart}</td>
+      <td>{wordRepititor}</td>
+      <td>{other}</td>
         </tr>
       );
     });

@@ -13,44 +13,77 @@ const UserSchema = new Schema({
   },
   ah: {
     type: String,
-    default: "ah",
+    default: "+",
   },
-  ah: {
+  AH: {
     type: String,
-    default: "ah",
+    default: "-",
   },
+
   um: {
     type: String,
-    default: "um",
+    default: "+",
+  },
+  UM: {
+    type: String,
+    default: "-",
   },
   so: {
     type: String,
-    default: "so",
+    default: "+",
+  },
+  SO: {
+    type: String,
+    default: "-",
   },
   but: {
     type: String,
-    default: "but",
+    default: "+",
+  },
+  BUT: {
+    type: String,
+    default: "-",
   },
   well: {
     type: String,
-    default: "well",
+    default: "+",
+  },
+  WELL: {
+    type: String,
+    default: "-",
   },
   ok: {
     type: String,
-    default: "ok",
+    default: "+",
+  },
+  ok: {
+    type: String,
+    default: "-",
   },
   falseStart: {
     type: String,
-    default: "falseStart",
+    default: "+",
+  },
+  FALSESTART: {
+    type: String,
+    default: "-",
   },
   wordRepititor: {
     type: String,
-    default: "wordRepititor"
+    default: "+",
+  },
+  WORDREPITITOR: {
+    type: String,
+    default: "-",
   },
   other: {
     type: String,
-    default: "other"
-  }
+    default: "+",
+  },
+  OTHER: {
+    type: String,
+    default: "-",
+  },
   // date: {
   //   type: Date,
   //   default: Date.now,
