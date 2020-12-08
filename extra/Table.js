@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import ParticipantService from "../../services/ParticipantService";
+import ParticipantService from "../client/src/services/ParticipantService";
 import "./Table.css";
 
 class Table extends Component {

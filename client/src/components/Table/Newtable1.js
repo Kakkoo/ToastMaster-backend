@@ -49,12 +49,7 @@ class Newtable extends Component {
   }
   plusClicked( plusData, e) {
     e.preventDefault();
-     //plusData = {
-      // meetingID: this.state.meetingID,
-      // name: this.state.name,
-      // fillerWord: this.state.fillerWord,
-      // count: this.state.count,
-    //};
+    
     this.props.addPlusCount(plusData, this.props.history);
     alert("+ Clicked");
   }
