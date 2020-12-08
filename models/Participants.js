@@ -56,7 +56,7 @@ const UserSchema = new Schema({
     type: String,
     default: "+",
   },
-  ok: {
+  OK: {
     type: String,
     default: "-",
   },
