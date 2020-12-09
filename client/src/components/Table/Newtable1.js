@@ -18,6 +18,7 @@ class Newtable extends Component {
         WORD_REPITITOR: "word_repititor",
         OTHER: "other",
       },
+      person: null,
     };
     //this.onClick = this.onClick.bind(this);
   }
