@@ -28,9 +28,13 @@ router.post(
     // Get fields
     const mainFields = {};
    // mainFields.user = req.user.id;
+   let DATE = req.body.date;
+   DATE.splice(0, 9);
     if (req.body.name) mainFields.name = req.body.name;
     if (req.body.fillerWord) mainFields.fillerWord = req.body.fillerWord;
     if (req.body.count) mainFields.count = req.body.count;
+     if (req.body.date) mainFields.date = DATE;
+
     new Main(mainFields).save().then((main) => res.json(main));
   }
 );
@@ -78,6 +82,28 @@ router.get(
         names.push(participants[i].name);
       }
       return res.status(200).json(participants);
+      //return res.status(200).json(names);
+    });
+  }
+);
+// @route   GET /api/main/allMeetingIDs
+// @desc    all participants
+// @access  Private
+router.get(
+  "/allMeetingIDs",
+  //passport.authenticate("jwt", { session: false }),
+  function (req, res) {
+    Main.find().then((Data) => {
+      if (!Data) {
+        return res.status(400).json({ MeetingID: "MeetingID not found" });
+      }
+      console.log("till here");
+      let meetingIDs = [];
+      for (let i = 0; i < Data.length; i++) {
+        meetingIDs.push((Data[i].meetingID));
+      }
+     
+      return res.status(200).json(meetingIDs);
       //return res.status(200).json(names);
     });
   }

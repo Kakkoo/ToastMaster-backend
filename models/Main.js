@@ -8,7 +8,7 @@ const UserSchema = new Schema({
   },
   meetingID: {
     type: Date,
-    default: Date.now,
+    required: true,
   },
   name: {
     type: String,
@@ -22,7 +22,6 @@ const UserSchema = new Schema({
     type: Number,
     required: true,
   },
- 
 });
 
 module.exports = Main = mongoose.model("ParticipantRecords", UserSchema);

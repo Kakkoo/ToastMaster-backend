@@ -61,7 +61,16 @@ export const addPlusCount = (userData, history) => (dispatch) => {
     );
 };
 
-
+export const Getrecords = (userData, history) => (dispatch) => {
+  axios
+    .get("/api/main/getRecord", userData)
+    .then(() => history.push("/getrecord"))
+    .catch((err) => dispatch({
+     // type: SET_ERROR,
+     // payload: err.response.data,
+    })
+    );
+};
 export const RemoveParticipants = (userData, history) => (dispatch) => {
   axios
     .post("/api/main/removeparticipant", userData)
