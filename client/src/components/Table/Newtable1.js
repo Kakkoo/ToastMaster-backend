@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import classnames from "classnames";
 import "./Table.css";
 import { connect } from "react-redux";
 import { addPlusCount } from "../../actions/authActions";

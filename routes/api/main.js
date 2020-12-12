@@ -27,12 +27,12 @@ router.post(
     }
     // Get fields
     const mainFields = {};
-   // mainFields.user = req.user.id;
-  
+    // mainFields.user = req.user.id;
+
     if (req.body.name) mainFields.name = req.body.name;
     if (req.body.fillerWord) mainFields.fillerWord = req.body.fillerWord;
     if (req.body.count) mainFields.count = req.body.count;
-     if (req.body.meetingID) mainFields.meetingID = req.body.meetingID;
+    if (req.body.meetingID) mainFields.meetingID = req.body.meetingID;
 
     new Main(mainFields).save().then((main) => res.json(main));
   }
@@ -69,7 +69,7 @@ router.post(
 // @access  Private
 router.get(
   "/allparticipants",
- //passport.authenticate("jwt", { session: false }),
+  //passport.authenticate("jwt", { session: false }),
   function (req, res) {
     Participants.find().then((participants) => {
       if (!participants) {
@@ -99,9 +99,11 @@ router.get(
       console.log("till here");
       let meetingIDs = [];
       for (let i = 0; i < Data.length; i++) {
-        meetingIDs.push((Data[i].meetingID));
+        if (meetingIDs.indexOf(Data[i].meetingID) === -1) {
+          meetingIDs.push(Data[i].meetingID);
+        }
       }
-     
+
       return res.status(200).json(meetingIDs);
       //return res.status(200).json(names);
     });
@@ -124,9 +126,9 @@ router.post(
       if (!user) {
         return res.status(400).json({ name: "Name does not exist" });
       }
-     Participants.deleteOne({name:req.body.name})
-     .then((participant) => res.json(participant)).catch(err => (console.log(err)));
-      
+      Participants.deleteOne({ name: req.body.name })
+        .then((participant) => res.json(participant))
+        .catch((err) => console.log(err));
     });
   }
 );
@@ -155,9 +157,9 @@ router.post(
 // @desc    getting record for participant
 // @access  Private
 
-router.get(
+router.post(
   "/getRecord",
- // passport.authenticate("jwt", { session: false }),
+  // passport.authenticate("jwt", { session: false }),
   (req, res) => {
     const meetingID = req.body.meetingID;
     const name = req.body.name;
@@ -170,7 +172,7 @@ router.get(
     let falseStartCount = 0;
     let wordRepititorCount = 0;
     let otherCount = 0;
-    const { errors, isValid } = validateGetRecordInput(req.body);
+    const {errors,  isValid } = validateGetRecordInput(req.body);
     if (!isValid) {
       // Return any errors with 400 status
       return res.status(400).json(errors);
@@ -198,32 +200,32 @@ router.get(
             if (user[i].fillerWord === "well") {
               wellCount += 1;
             }
-             if (user[i].fillerWord === "ok") {
-               okCount += 1;
-             }
-              if (user[i].fillerWord === "falseStart") {
-                falseStartCount += 1;
-              }
-               if (user[i].fillerWord === "wordRepititor") {
-                 wordRepititorCount += 1;
-               }
-                if (user[i].fillerWord === "other") {
-                  otherCount += 1;
-                }
+            if (user[i].fillerWord === "ok") {
+              okCount += 1;
+            }
+            if (user[i].fillerWord === "falseStart") {
+              falseStartCount += 1;
+            }
+            if (user[i].fillerWord === "wordRepititor") {
+              wordRepititorCount += 1;
+            }
+            if (user[i].fillerWord === "other") {
+              otherCount += 1;
+            }
           }
         }
         return res.status(200).json({
-          meetingID,
-          name,
-          ahCount,
-          umCount,
-          soCount,
-          butCount,
-          wellCount,
-          okCount,
-          falseStartCount,
-          wordRepititorCount,
-          otherCount
+          meetingID: meetingID,
+          name: name,
+          ahCount: ahCount,
+          umCount: umCount,
+          so: soCount,
+          but: butCount,
+          well: wellCount,
+          ok: okCount,
+          falseStart: falseStartCount,
+          wordRepititor: wordRepititorCount,
+          other: otherCount,
         });
       })
       .catch((err) => console.log(err));
