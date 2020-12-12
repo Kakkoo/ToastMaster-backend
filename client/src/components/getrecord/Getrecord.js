@@ -43,7 +43,6 @@ class GetRecord extends Component {
   }
   onChange(e) {
     this.setState({ [e.target.name]: e.target.value });
-    this.setState({ [e.target.meetingID]: e.target.value });
   }
 
   onSubmit(e) {
@@ -100,6 +99,7 @@ class GetRecord extends Component {
                 </div>
                 <input type="submit" className="btn btn-info btn-block mt-4" />
               </form>
+              <div id="record"></div>
             </div>
           </div>
         </div>

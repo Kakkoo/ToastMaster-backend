@@ -64,12 +64,14 @@ export const addPlusCount = (userData, history) => (dispatch) => {
 export const Getrecords = (userData, history) => (dispatch) => {
   axios
     .get("/api/main/getRecord", userData)
-    .then(() => history.push("/getrecord"))
-    .catch((err) => dispatch({
-     // type: SET_ERROR,
-     // payload: err.response.data,
+    .then((res) => {
+      console.log(res);
+
+      document.getElementById("record").innerHTML = res.data;
     })
-    );
+    .then(() => history.push("/getrecord"))
+    .catch(err => console.log(err));
+    
 };
 export const RemoveParticipants = (userData, history) => (dispatch) => {
   axios

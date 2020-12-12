@@ -28,12 +28,11 @@ router.post(
     // Get fields
     const mainFields = {};
    // mainFields.user = req.user.id;
-   let DATE = req.body.date;
-   DATE.splice(0, 9);
+  
     if (req.body.name) mainFields.name = req.body.name;
     if (req.body.fillerWord) mainFields.fillerWord = req.body.fillerWord;
     if (req.body.count) mainFields.count = req.body.count;
-     if (req.body.date) mainFields.date = DATE;
+     if (req.body.meetingID) mainFields.meetingID = req.body.meetingID;
 
     new Main(mainFields).save().then((main) => res.json(main));
   }
@@ -168,8 +167,8 @@ router.get(
     let butCount = 0;
     let wellCount = 0;
     let okCount = 0;
-    let fSCount = 0;
-    let wrCount = 0;
+    let falseStartCount = 0;
+    let wordRepititorCount = 0;
     let otherCount = 0;
     const { errors, isValid } = validateGetRecordInput(req.body);
     if (!isValid) {
@@ -203,10 +202,10 @@ router.get(
                okCount += 1;
              }
               if (user[i].fillerWord === "falseStart") {
-                fsCount += 1;
+                falseStartCount += 1;
               }
                if (user[i].fillerWord === "wordRepititor") {
-                 wrCount += 1;
+                 wordRepititorCount += 1;
                }
                 if (user[i].fillerWord === "other") {
                   otherCount += 1;
@@ -222,8 +221,8 @@ router.get(
           butCount,
           wellCount,
           okCount,
-          fsCount,
-          wrCount,
+          falseStartCount,
+          wordRepititorCount,
           otherCount
         });
       })

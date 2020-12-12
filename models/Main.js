@@ -7,7 +7,7 @@ const UserSchema = new Schema({
     ref: "ToastMasterUsers",
   },
   meetingID: {
-    type: Date,
+    type: String,
     required: true,
   },
   name: {

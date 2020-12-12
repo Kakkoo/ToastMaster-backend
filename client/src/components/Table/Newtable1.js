@@ -1,7 +1,8 @@
 import React, { Component } from "react";
+import classnames from "classnames";
 import "./Table.css";
 import { connect } from "react-redux";
-import {addPlusCount} from "../../actions/authActions";
+import { addPlusCount } from "../../actions/authActions";
 class Newtable extends Component {
   constructor() {
     super();
@@ -23,9 +24,13 @@ class Newtable extends Component {
       name: "",
       fillerWord: "",
       count: null,
-      date: Date()
+      date: Date(),
     };
+    this.onChange = this.onChange.bind(this);
     //this.onClick = this.onClick.bind(this);
+  }
+  onChange(e) {
+    this.setState({ [e.target.name]: e.target.value });
   }
   renderTableHeader() {
     let header = Object.keys(this.state.fillerwords);
@@ -37,9 +42,9 @@ class Newtable extends Component {
       );
     });
   }
-  plusClicked( plusData, e) {
+  plusClicked(plusData, e) {
     e.preventDefault();
-    
+
     this.props.addPlusCount(plusData, this.props.history);
     alert("Clicked");
   }
@@ -74,7 +79,7 @@ class Newtable extends Component {
               name: `${name}`,
               fillerWord: "ah",
               count: 1,
-              date: Date(),
+              meetingID: this.state.meetingID,
             })}
           >
             {ah}
@@ -84,7 +89,7 @@ class Newtable extends Component {
               name: `${name}`,
               fillerWord: "ah",
               count: -1,
-              date: Date(),
+              meetingID: this.state.meetingID,
             })}
           >
             {AH}
@@ -94,7 +99,7 @@ class Newtable extends Component {
               name: `${name}`,
               fillerWord: "um",
               count: 1,
-              date: Date(),
+              meetingID: this.state.meetingID,
             })}
           >
             {um}
@@ -104,7 +109,7 @@ class Newtable extends Component {
               name: `${name}`,
               fillerWord: "um",
               count: -1,
-              date: Date(),
+              meetingID: this.state.meetingID,
             })}
           >
             {UM}
@@ -114,7 +119,7 @@ class Newtable extends Component {
               name: `${name}`,
               fillerWord: "so",
               count: 1,
-              date: Date(),
+              meetingID: this.state.meetingID,
             })}
           >
             {so}
@@ -124,7 +129,7 @@ class Newtable extends Component {
               name: `${name}`,
               fillerWord: "so",
               count: -1,
-              date: Date(),
+              meetingID: this.state.meetingID,
             })}
           >
             {SO}
@@ -134,7 +139,7 @@ class Newtable extends Component {
               name: `${name}`,
               fillerWord: "but",
               count: 1,
-              date: Date(),
+              meetingID: this.state.meetingID,
             })}
           >
             {but}
@@ -144,7 +149,7 @@ class Newtable extends Component {
               name: `${name}`,
               fillerWord: "but",
               count: -1,
-              date: Date(),
+              meetingID: this.state.meetingID,
             })}
           >
             {BUT}
@@ -154,7 +159,7 @@ class Newtable extends Component {
               name: `${name}`,
               fillerWord: "well",
               count: 1,
-              date: Date(),
+              meetingID: this.state.meetingID,
             })}
           >
             {well}
@@ -164,7 +169,7 @@ class Newtable extends Component {
               name: `${name}`,
               fillerWord: "well",
               count: -1,
-              date: Date(),
+              meetingID: this.state.meetingID,
             })}
           >
             {WELL}
@@ -174,7 +179,7 @@ class Newtable extends Component {
               name: `${name}`,
               fillerWord: "ok",
               count: 1,
-              date: Date(),
+              meetingID: this.state.meetingID,
             })}
           >
             {ok}
@@ -184,7 +189,7 @@ class Newtable extends Component {
               name: `${name}`,
               fillerWord: "ok",
               count: -1,
-              date: Date(),
+              meetingID: this.state.meetingID,
             })}
           >
             {OK}
@@ -194,7 +199,7 @@ class Newtable extends Component {
               name: `${name}`,
               fillerWord: "falseStart",
               count: 1,
-              date: Date(),
+              meetingID: this.state.meetingID,
             })}
           >
             {falseStart}
@@ -204,7 +209,7 @@ class Newtable extends Component {
               name: `${name}`,
               fillerWord: "falseStart",
               count: -1,
-              date: Date(),
+              meetingID: this.state.meetingID,
             })}
           >
             {FALSESTART}
@@ -214,7 +219,7 @@ class Newtable extends Component {
               name: `${name}`,
               fillerWord: "wordRepititor",
               count: 1,
-              date: Date(),
+              meetingID: this.state.meetingID,
             })}
           >
             {wordRepititor}
@@ -224,7 +229,7 @@ class Newtable extends Component {
               name: `${name}`,
               fillerWord: "wordRepititor",
               count: -1,
-              date: Date(),
+              meetingID: this.state.meetingID,
             })}
           >
             {WORDREPITITOR}
@@ -234,7 +239,7 @@ class Newtable extends Component {
               name: `${name}`,
               fillerWord: "other",
               count: 1,
-              date: Date(),
+              meetingID: this.state.meetingID,
             })}
           >
             {other}
@@ -244,7 +249,7 @@ class Newtable extends Component {
               name: `${name}`,
               fillerWord: "other",
               count: -1,
-              date: Date(),
+              meetingID: this.state.meetingID,
             })}
           >
             {OTHER}
@@ -259,7 +264,7 @@ class Newtable extends Component {
     const DATA = await Response.json();
     this.setState({ person: DATA, loading: false });
   }
-  
+
   render() {
     return (
       <div>
@@ -272,7 +277,20 @@ class Newtable extends Component {
             <table id="students">
               <tbody>
                 <tr>
-                  <td id="meetingID">{this.state.date}</td>
+                  <td>
+                    <form noValidate>
+                      <div className="form-group">
+                        <input
+                          type="meetingID"
+                          placeholder="Meeting ID"
+                          name="meetingID"
+                          value={this.state.meetingID}
+                          onChange={this.onChange}
+                        />
+                      </div>
+                    </form>
+                  </td>
+                  {/* <td id="meetingID">{this.state.date}</td> */}
                   {this.renderTableHeader()}
                 </tr>
                 {this.renderTableData()}
