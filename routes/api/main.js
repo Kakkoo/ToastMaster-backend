@@ -27,8 +27,7 @@ router.post(
     }
     // Get fields
     const mainFields = {};
-    mainFields.user = req.user.id;
-    if (req.body.meetingID) mainFields.meetingID = req.body.meetingID;
+   // mainFields.user = req.user.id;
     if (req.body.name) mainFields.name = req.body.name;
     if (req.body.fillerWord) mainFields.fillerWord = req.body.fillerWord;
     if (req.body.count) mainFields.count = req.body.count;
@@ -96,12 +95,14 @@ router.post(
       return res.status(400).json(errors);
     }
     // Get fields
-    const participantFields = {};
-    participantFields.user = req.user.id;
-    if (req.body.name) participantFields.name = req.body.name;
-    new Participants(participantFields)
-      .save()
-      .then((participants) => res.json(participants));
+    Participants.findOne({ name: req.body.name }).then((user) => {
+      if (!user) {
+        return res.status(400).json({ name: "Name does not exist" });
+      }
+     Participants.deleteOne({name:req.body.name})
+     .then((participant) => res.json(participant)).catch(err => (console.log(err)));
+      
+    });
   }
 );
 // @route   POST /api/main/add fillerWords

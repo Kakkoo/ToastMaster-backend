@@ -69,7 +69,6 @@ export const RemoveParticipants = (userData, history) => (dispatch) => {
     .catch((err) =>
       dispatch({
         type: SET_ERROR,
-        payload: err.response.data,
       })
     );
 };

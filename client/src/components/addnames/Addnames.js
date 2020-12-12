@@ -30,9 +30,9 @@ class Participants extends Component {
     for (let i = 0; i < data.length; i++) {
       names.push(data[i].name);
     };
-    names = names.join(",___  ");
+    names = names.join(".......");
     this.setState({ person: names, loading: false });
-    //console.log(data[0].name);
+   
   }
 
   onChange(e) {
@@ -62,7 +62,7 @@ class Participants extends Component {
             <div>loading...</div>
           ) : (
             <div>
-              <div>{this.state.person}</div>
+              <h4>{this.state.person}</h4>
               
             </div>
           )}

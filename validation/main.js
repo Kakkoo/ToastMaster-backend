@@ -4,13 +4,13 @@ const isEmpty = require("./is-empty");
 module.exports = function validateMainInput(data) {
   let errors = {};
 
-  if (!Validator.isLength(data.meetingID, { min: 2, max: 40 })) {
-    errors.meetingID = "MeetingID needs to between 2 and 40 characters";
-  }
+  // if (!Validator.isLength(data.meetingID, { min: 2, max: 40 })) {
+  //   errors.meetingID = "MeetingID needs to between 2 and 40 characters";
+  // }
 
-  if (isEmpty(data.meetingID)) {
-    errors.meetingID = "MeetingID is required";
-  }
+  // if (isEmpty(data.meetingID)) {
+  //   errors.meetingID = "MeetingID is required";
+  // }
 
   if (isEmpty(data.name)) {
     errors.name = "name field is required";

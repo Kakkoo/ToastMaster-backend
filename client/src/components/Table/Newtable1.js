@@ -19,6 +19,10 @@ class Newtable extends Component {
         OTHER: "other",
       },
       person: null,
+      meetingID: "",
+      name: "",
+      fillerWord: "",
+      count: null,
     };
     //this.onClick = this.onClick.bind(this);
   }
@@ -32,22 +36,11 @@ class Newtable extends Component {
       );
     });
   }
-  minusClicked(e) {
-    e.preventDefault();
-    const minusData = {
-      meetingID: this.state.meetingID,
-      name: this.state.name,
-      fillerWord: this.state.fillerWord,
-      count: this.state.count,
-    };
-    this.props.addMinusCount(minusData, this.props.history);
-    alert("- Clicked");
-  }
   plusClicked( plusData, e) {
     e.preventDefault();
     
     this.props.addPlusCount(plusData, this.props.history);
-    alert("+ Clicked");
+    alert("Clicked");
   }
   renderTableData() {
     return this.state.person.map((person, index) => {
@@ -77,7 +70,7 @@ class Newtable extends Component {
           <td>{name}</td>
           <td
             onClick={this.plusClicked.bind(this, {
-              name: "how to get value here",
+              name: `${name}`,
               fillerWord: "ah",
               count: 1,
             })}
@@ -86,7 +79,7 @@ class Newtable extends Component {
           </td>
           <td
             onClick={this.plusClicked.bind(this, {
-              name: "HOW",
+              name: `${name}`,
               fillerWord: "ah",
               count: -1,
             })}
@@ -95,7 +88,7 @@ class Newtable extends Component {
           </td>
           <td
             onClick={this.plusClicked.bind(this, {
-              name: "HOW",
+              name: `${name}`,
               fillerWord: "um",
               count: 1,
             })}
@@ -104,7 +97,7 @@ class Newtable extends Component {
           </td>
           <td
             onClick={this.plusClicked.bind(this, {
-              name: "HOW",
+              name: `${name}`,
               fillerWord: "um",
               count: -1,
             })}
@@ -113,7 +106,7 @@ class Newtable extends Component {
           </td>
           <td
             onClick={this.plusClicked.bind(this, {
-              name: "HOW",
+              name: `${name}`,
               fillerWord: "so",
               count: 1,
             })}
@@ -122,7 +115,7 @@ class Newtable extends Component {
           </td>
           <td
             onClick={this.plusClicked.bind(this, {
-              name: "HOW",
+              name: `${name}`,
               fillerWord: "so",
               count: -1,
             })}
@@ -131,7 +124,7 @@ class Newtable extends Component {
           </td>
           <td
             onClick={this.plusClicked.bind(this, {
-              name: "HOW",
+              name: `${name}`,
               fillerWord: "but",
               count: 1,
             })}
@@ -140,7 +133,7 @@ class Newtable extends Component {
           </td>
           <td
             onClick={this.plusClicked.bind(this, {
-              name: "HOW",
+              name: `${name}`,
               fillerWord: "but",
               count: -1,
             })}
@@ -149,7 +142,7 @@ class Newtable extends Component {
           </td>
           <td
             onClick={this.plusClicked.bind(this, {
-              name: "HOW",
+              name: `${name}`,
               fillerWord: "well",
               count: 1,
             })}
@@ -158,7 +151,7 @@ class Newtable extends Component {
           </td>
           <td
             onClick={this.plusClicked.bind(this, {
-              name: "HOW",
+              name: `${name}`,
               fillerWord: "well",
               count: -1,
             })}
@@ -167,7 +160,7 @@ class Newtable extends Component {
           </td>
           <td
             onClick={this.plusClicked.bind(this, {
-              name: "HOW",
+              name: `${name}`,
               fillerWord: "ok",
               count: 1,
             })}
@@ -176,7 +169,7 @@ class Newtable extends Component {
           </td>
           <td
             onClick={this.plusClicked.bind(this, {
-              name: "HOW",
+              name: `${name}`,
               fillerWord: "ok",
               count: -1,
             })}
@@ -185,7 +178,7 @@ class Newtable extends Component {
           </td>
           <td
             onClick={this.plusClicked.bind(this, {
-              name: "HOW",
+              name: `${name}`,
               fillerWord: "falseStart",
               count: 1,
             })}
@@ -194,7 +187,7 @@ class Newtable extends Component {
           </td>
           <td
             onClick={this.plusClicked.bind(this, {
-              name: "HOW",
+              name: `${name}`,
               fillerWord: "falseStart",
               count: -1,
             })}
@@ -203,7 +196,7 @@ class Newtable extends Component {
           </td>
           <td
             onClick={this.plusClicked.bind(this, {
-              name: "HOW",
+              name: `${name}`,
               fillerWord: "wordRepititor",
               count: 1,
             })}
@@ -212,7 +205,7 @@ class Newtable extends Component {
           </td>
           <td
             onClick={this.plusClicked.bind(this, {
-              name: "HOW",
+              name: `${name}`,
               fillerWord: "wordRepititor",
               count: -1,
             })}
@@ -221,7 +214,7 @@ class Newtable extends Component {
           </td>
           <td
             onClick={this.plusClicked.bind(this, {
-              name: "HOW",
+              name: `${name}`,
               fillerWord: "other",
               count: 1,
             })}
@@ -230,7 +223,7 @@ class Newtable extends Component {
           </td>
           <td
             onClick={this.plusClicked.bind(this, {
-              name: "HOW",
+              name: `${name}`,
               fillerWord: "other",
               count: -1,
             })}

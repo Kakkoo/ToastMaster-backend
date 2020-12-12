@@ -5,6 +5,10 @@ import { connect } from "react-redux";
 import { RemoveParticipants } from "../../actions/authActions";
 
 class RParticipants extends Component {
+  state = {
+    loading: true,
+    person: null,
+  };
   constructor() {
     super();
     //local state of the component
@@ -16,7 +20,18 @@ class RParticipants extends Component {
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
   }
-
+  async componentDidMount() {
+    const url = "http://localhost:8000/api/main/allparticipants";
+    const response = await fetch(url);
+    const data = await response.json();
+    let names = [];
+    for (let i = 0; i < data.length; i++) {
+      names.push(data[i].name);
+    }
+    names = names.join(".......");
+    this.setState({ person: names, loading: false });
+   
+  }
   onChange(e) {
     this.setState({ [e.target.name]: e.target.value });
   }
@@ -30,16 +45,7 @@ class RParticipants extends Component {
     this.props.RemoveParticipants(participants);
   }
 
-  // componentDidMount() {
-  //   if (this.props.auth.isAuthenticated) {
-  //     this.props.history.push("/removename");
-  //   }
-  // }
-
   componentWillReceiveProps(nextProps) {
-    if (nextProps.auth.isAuthenticated) {
-      this.props.history.push("/table");
-    }
     if (nextProps.errors) {
       this.setState({ errors: nextProps.errors });
     }
@@ -48,14 +54,21 @@ class RParticipants extends Component {
   render() {
     const { errors } = this.state;
     return (
-      <div className="login">
-        <div className="container align-items-center mx-auto col-lg-6">
+      <div className="RemoveParticipants">
+        <div>
+          {this.state.loading || !this.state.person ? (
+            <div>loading...</div>
+          ) : (
+            <div>
+              <h4>{this.state.person}</h4>
+            </div>
+          )}
+        </div>
+        <div className="container">
           <div className="row">
             <div className="col-md-8 m-auto">
-              <h1 id="Removenames" className="display-4 text-center">
-                Remove Participant
-              </h1>
-
+              <h2 className="display-5 text-center">Remove Participants</h2>
+              <p className="lead text-center"></p>
               <form noValidate onSubmit={this.onSubmit}>
                 <div className="form-group">
                   <input
@@ -63,7 +76,7 @@ class RParticipants extends Component {
                     className={classnames("form-control form-control-lg", {
                       "is-invalid": errors.name,
                     })}
-                    placeholder="Participant"
+                    placeholder="name"
                     name="name"
                     value={this.state.name}
                     onChange={this.onChange}
@@ -72,15 +85,7 @@ class RParticipants extends Component {
                     <div className="invalid-feedback">{errors.name}</div>
                   )}
                 </div>
-
-                <div className="container mx-auto d-flex justify-content-around align-items-center mt-4">
-                  <button
-                    type="submit"
-                    className="btn btn-lg btn-light bg-light btn-outline-dark align-self-center p-3 col-5"
-                  >
-                    Submit
-                  </button>
-                </div>
+                <input type="submit" className="btn btn-info btn-block mt-4" />
               </form>
             </div>
           </div>
