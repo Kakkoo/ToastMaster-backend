@@ -158,15 +158,19 @@ router.post(
 
 router.get(
   "/getRecord",
-  passport.authenticate("jwt", { session: false }),
+ // passport.authenticate("jwt", { session: false }),
   (req, res) => {
     const meetingID = req.body.meetingID;
     const name = req.body.name;
-    let aaCount = 0;
+    let ahCount = 0;
     let umCount = 0;
-    let hmCount = 0;
-    let thisCount = 0;
-    let thatCount = 0;
+    let soCount = 0;
+    let butCount = 0;
+    let wellCount = 0;
+    let okCount = 0;
+    let fSCount = 0;
+    let wrCount = 0;
+    let otherCount = 0;
     const { errors, isValid } = validateGetRecordInput(req.body);
     if (!isValid) {
       // Return any errors with 400 status
@@ -180,31 +184,47 @@ router.get(
             .json({ name: "This name doesn't have record" });
         } else {
           for (let i = 0; i < user.length; i++) {
-            if (user[i].fillerWord === "aa") {
-              aaCount += 1;
+            if (user[i].fillerWord === "ah") {
+              ahCount += 1;
             }
             if (user[i].fillerWord === "um") {
               umCount += 1;
             }
-            if (user[i].fillerWord === "hm") {
-              hmCount += 1;
+            if (user[i].fillerWord === "so") {
+              soCount += 1;
             }
-            if (user[i].fillerWord === "this") {
-              thisCount += 1;
+            if (user[i].fillerWord === "but") {
+              butCount += 1;
             }
-            if (user[i].fillerWord === "that") {
-              thatCount += 1;
+            if (user[i].fillerWord === "well") {
+              wellCount += 1;
             }
+             if (user[i].fillerWord === "ok") {
+               okCount += 1;
+             }
+              if (user[i].fillerWord === "falseStart") {
+                fsCount += 1;
+              }
+               if (user[i].fillerWord === "wordRepititor") {
+                 wrCount += 1;
+               }
+                if (user[i].fillerWord === "other") {
+                  otherCount += 1;
+                }
           }
         }
         return res.status(200).json({
           meetingID,
           name,
-          aaCount,
+          ahCount,
           umCount,
-          hmCount,
-          thisCount,
-          thatCount,
+          soCount,
+          butCount,
+          wellCount,
+          okCount,
+          fsCount,
+          wrCount,
+          otherCount
         });
       })
       .catch((err) => console.log(err));
