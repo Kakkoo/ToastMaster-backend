@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import "./Table.css";
 import { connect } from "react-redux";
 import { addPlusCount } from "../../actions/authActions";
-class Newtable1 extends Component {
+class Newtable extends Component {
   constructor() {
     super();
     this.state = {
@@ -301,7 +301,7 @@ class Newtable1 extends Component {
     );
   }
 }
-addPlusCount.propTypes = {
+Newtable.propTypes = {
   // addPlusCount: PropTypes.func.isRequired,
   // errors: PropTypes.object.isRequired,
   // auth: PropTypes.object.isRequired,
@@ -312,4 +312,4 @@ const mapStateToProps = (state) => ({
   //auth: state.auth,
 });
 
-export default connect(mapStateToProps, { addPlusCount })(Newtable1);
+export default connect(mapStateToProps, { addPlusCount })(Newtable);
