@@ -23,7 +23,7 @@ class Participants extends Component {
     this.onSubmit = this.onSubmit.bind(this);
   }
   async componentDidMount() {
-    const url = "http://localhost:8000/api/main/allparticipants";
+    const url = "./api/main/allparticipants";
     const response = await fetch(url);
     const data = await response.json();
     let names = [];

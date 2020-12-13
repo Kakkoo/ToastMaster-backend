@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import "./Table.css";
 import { connect } from "react-redux";
 import { addPlusCount } from "../../actions/authActions";
+import axios from "axios";
 class Newtable extends Component {
   constructor() {
     super();
@@ -258,10 +259,12 @@ class Newtable extends Component {
     });
   }
   async componentDidMount() {
-    const url = "http://localhost:8000/api/main/allparticipants";
-    const Response = await fetch(url);
-    const DATA = await Response.json();
-    this.setState({ person: DATA, loading: false });
+    axios.get("/api/main/allparticipants")
+    .then((data) => this.setState({ person: data.json(), loading: false}));
+    // const url = "http://localhost:8000/api/main/allparticipants";
+    // const Response = await fetch(url);
+    // const DATA = await Response.json();
+    // this.setState({ person: DATA, loading: false });
   }
 
   render() {
