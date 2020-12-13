@@ -21,7 +21,6 @@ Running your own instance of this app will not connect with our users, posts, an
     - a mongoURI
     - secretOrKey
     - an email smtp
-    - a cloudinary cloud name/API Key/API secret.
 3. Run <code>npm install</code>
 4. Run <code>npm run dev</code>
 
