@@ -15,7 +15,7 @@ import Settings from "./components/settings/Settings";
 import PrivateRoute from "./components/common/PrivateRoute";
 import Register from './components/auth/Register';
 import Login from './components/auth/Login';
-import Newtable from './components/table/Newtable';
+import Newtable1 from './components/Table/Newtable1';
 import store from './store';
 import Getrecord from "./components/getrecord/Getrecord";
 import Addnames from "./components/addnames/Addnames";
@@ -66,7 +66,7 @@ class App extends Component {
               <PrivateRoute exact path="/removename" component={Removename} />
             </Switch>
             <Switch>
-              <PrivateRoute exact path="/table" component={Newtable} />
+              <PrivateRoute exact path="/Table" component={Newtable1} />
             </Switch>
             <Switch>
               <PrivateRoute exact path="/getrecord" component={Getrecord} />
