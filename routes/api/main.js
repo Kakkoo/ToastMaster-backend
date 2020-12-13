@@ -11,7 +11,7 @@ const validateMainInput = require("../../validation/main");
 const validateGetRecordInput = require("../../validation/getRecord");
 const validateParticipantsInput = require("../../validation/participants");
 const validateFillerWordsInput = require("../../validation/fillerWord");
-const User = require("../../models/User");
+const user = require("../../models/user");
 //router.get("/test", (req, res) => res.json({ msg: "Main works" }));
 // @route   POST /api/main
 // @desc    Meeting filler words record
