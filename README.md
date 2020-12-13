@@ -1,7 +1,7 @@
 <img src="toast-master.png" alt="Filler Word Counter" width="60%">
 
 
-# ToastMaster-backend
+# Filler-Word_Counter
 Filler Word Counter. User can keep track of Filler Words (ah, um, so , ok....) in any particular meeting spoken by all speakers. Later user can see record too. Participants's can be added or removed too.
 
 I built all aspects of this application, from the databases to the APIs, from the ground up. Features include responsive design, JWTToken authentication, password encryption,  and more. Data is passed between components utilizing Redux store.
