@@ -22,7 +22,7 @@ class GetRecord extends Component {
     this.onSubmit = this.onSubmit.bind(this);
   }
   async componentDidMount() {
-    const url = "http://localhost:8000/api/main/allparticipants";
+    const url = "./api/main/allparticipants";
     const response = await fetch(url);
     const data = await response.json();
     let names = [];
@@ -32,7 +32,7 @@ class GetRecord extends Component {
     names = names.join(".......");
     this.setState({ person: names, loading: false });
 
-    const URL = "http://localhost:8000/api/main/allMeetingIDs";
+    const URL = "./api/main/allMeetingIDs";
     const Response = await fetch(URL);
     const Data = await Response.json();
     this.setState({ Meeting: Data, loading: false });

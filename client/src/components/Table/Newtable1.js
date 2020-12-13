@@ -259,12 +259,10 @@ class Newtable extends Component {
     });
   }
   async componentDidMount() {
-    axios.get("/api/main/allparticipants")
-    .then((data) => this.setState({ person: data.json(), loading: false}));
-    // const url = "http://localhost:8000/api/main/allparticipants";
-    // const Response = await fetch(url);
-    // const DATA = await Response.json();
-    // this.setState({ person: DATA, loading: false });
+    axios.get("/api/main/allparticipants").then((res) => {
+      console.log(res);
+      this.setState({ person: res.data, loading: false });
+    });
   }
 
   render() {
