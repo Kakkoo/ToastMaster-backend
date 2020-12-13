@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import "./Table.css";
 import { connect } from "react-redux";
 import { addPlusCount } from "../../actions/authActions";
-class Newtable extends Component {
+class Newtable1 extends Component {
   constructor() {
     super();
     this.state = {
@@ -312,4 +312,4 @@ const mapStateToProps = (state) => ({
   //auth: state.auth,
 });
 
-export default connect(mapStateToProps, { addPlusCount })(Newtable);
+export default connect(mapStateToProps, { addPlusCount })(Newtable1);
