@@ -30,9 +30,8 @@
     "rm": "^0.1.8",
     "validator": "^13.1.17"
   },
-   "proxy": "http://localhost:3000",
+  "proxy": "http://localhost:3000",
   "devDependencies": {
     "nodemon": "^2.0.4"
   }
- 
 }
