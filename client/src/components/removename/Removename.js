@@ -42,14 +42,14 @@ class RParticipants extends Component {
       name: this.state.name,
     };
 
-    this.props.RemoveParticipants(participants);
+    this.props.RemoveParticipants(participants, this.props.history);
   }
 
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.errors) {
-      this.setState({ errors: nextProps.errors });
-    }
-  }
+  // componentWillReceiveProps(nextProps) {
+  //   if (nextProps.errors) {
+  //     this.setState({ errors: nextProps.errors });
+  //   }
+  // }
 
   render() {
     const { errors } = this.state;
