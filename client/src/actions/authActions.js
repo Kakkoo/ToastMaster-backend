@@ -61,33 +61,33 @@ export const addPlusCount = (userData, history) => (dispatch) => {
     );
 };
 
-export const Getrecords = (userData) => () => {
-  axios
-    .post("/api/main/getRecord", userData)
-    .then((res) => {
-      const DD = res.data;
-      console.log(DD);
-      document.getElementById("meet").innerHTML = `MeetingID:`+ res.data.meetingID;
-      document.getElementById("name").innerHTML =`Name:`+ res.data.name;
-      document.getElementById("ah").innerHTML = `ah:`+res.data.ahCount;
-      document.getElementById("um").innerHTML = `um:`+res.data.umCount;
-      document.getElementById("so").innerHTML = `so:` + res.data.so;
-      document.getElementById("but").innerHTML = `but:` + res.data.but;
-      document.getElementById("well").innerHTML = `well:` + res.data.well;
-      document.getElementById("ok").innerHTML = `ok:` + res.data.ok;
-      document.getElementById("false").innerHTML = `falseStart:` + res.data.falseStart;
-      document.getElementById("word").innerHTML = `wordRepititor:` + res.data.wordRepititor;
-      document.getElementById("other").innerHTML = `other:` + res.data.other;
+// export const Getrecords = (userData) => () => {
+//   axios
+//     .post("/api/main/getRecord", userData)
+//     .then((res) => {
+//       const DD = res.data;
+//       console.log(DD);
+//       document.getElementById("meet").innerHTML = `MeetingID:`+ res.data.meetingID;
+//       document.getElementById("name").innerHTML =`Name:`+ res.data.name;
+//       document.getElementById("ah").innerHTML = `ah:`+res.data.ahCount;
+//       document.getElementById("um").innerHTML = `um:`+res.data.umCount;
+//       document.getElementById("so").innerHTML = `so:` + res.data.so;
+//       document.getElementById("but").innerHTML = `but:` + res.data.but;
+//       document.getElementById("well").innerHTML = `well:` + res.data.well;
+//       document.getElementById("ok").innerHTML = `ok:` + res.data.ok;
+//       document.getElementById("false").innerHTML = `falseStart:` + res.data.falseStart;
+//       document.getElementById("word").innerHTML = `wordRepititor:` + res.data.wordRepititor;
+//       document.getElementById("other").innerHTML = `other:` + res.data.other;
      
-    })
-    .catch(
-      (err) => console.log(err)
-      //  dispatch({
-      //  type: SET_ERROR,
-      //   //payload: err.res.data,
-      //  })
-    );
-};
+//     })
+//     .catch(
+//       (err) => console.log(err)
+//       //  dispatch({
+//       //  type: SET_ERROR,
+//       //   //payload: err.res.data,
+//       //  })
+//     );
+// };
 export const RemoveParticipants = (userData, history) => (dispatch) => {
   axios
     .post("/api/main/removeparticipant", userData)

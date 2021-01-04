@@ -4,8 +4,6 @@ import classnames from "classnames";
 import {
   LineChart,
   Line,
-  BarChart,
-  Bar,
   XAxis,
   YAxis,
   Tooltip,
@@ -21,12 +19,6 @@ class GetRecord extends Component {
     person: null,
     Meeting: null,
     Data: null,
-    //  [
-    //   { name: "Page A", uv: 4000, pv: 2400, amt: 2400 },
-    //   { name: "Page B", uv: 3000, pv: 1398, amt: 2210 },
-    // { meetingID: "Bothell_01", aa: 1, um: 2, so: 0 },
-    // { meetingID: "Bothell_02", aa: 2, um: 3, so: 1 },
-    //],
     Name: null,
     MeetingID: null,
   };
@@ -73,26 +65,13 @@ class GetRecord extends Component {
       .post(`/api/main/getRecord`, participant)
       .then((res) => {
         const DD = res.data;
-
         console.log(DD);
-        // let data = Object.keys(DD).map((Key) => {
-        //   return {
-        //     Key,
-        //     value: DD[Key],
-        //   };
-        // });
         let nname = DD[0].name;
-        // let mmeetingID = data[1].value;
         this.setState({ Name: nname });
-        //this.setState({ MeetingID: mmeetingID });
-        // data.splice(0, 2);
-        // console.log(data);
-
         this.setState({ Data: DD });
       })
       .catch((err) => console.log(err));
   }
-
   render() {
     const { errors } = this.state;
     return (
@@ -135,15 +114,6 @@ class GetRecord extends Component {
                 />
                 <Line type="monotone" dataKey="other" stroke="#FFFF00" />
               </LineChart>
-              {/* <BarChart width={1000} height={400} data={this.state.Data}>
-                <CartesianGrid strokeDasharray="3 3" />
-                <XAxis datakey="Key" />
-
-                <YAxis />
-                <Tooltip />
-                <Legend />
-                <Bar dataKey="value" fill="#8884d8" />
-              </BarChart> */}
             </div>
           )}
         </div>
@@ -198,7 +168,7 @@ class GetRecord extends Component {
                     <div className="invalid-feedback">{errors.name}</div>
                   )}
                 </div>
-                <div className="form-group">
+                {/* <div className="form-group">
                   <input
                     type="meetingID"
                     className={classnames("form-control form-control-lg", {
@@ -212,7 +182,7 @@ class GetRecord extends Component {
                   {errors.meetingID && (
                     <div className="invalid-feedback">{errors.meetingID}</div>
                   )}
-                </div>
+                </div> */}
 
                 <input type="submit" className="btn btn-info btn-block mt-4" />
               </form>
