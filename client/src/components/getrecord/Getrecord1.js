@@ -2,8 +2,6 @@ import React, { Component } from "react";
 import classnames from "classnames";
 
 import {
-  LineChart,
-  Line,
   BarChart,
   Bar,
   XAxis,
@@ -21,12 +19,6 @@ class GetRecord extends Component {
     person: null,
     Meeting: null,
     Data: null,
-    //  [
-    //   { name: "Page A", uv: 4000, pv: 2400, amt: 2400 },
-    //   { name: "Page B", uv: 3000, pv: 1398, amt: 2210 },
-    // { meetingID: "Bothell_01", aa: 1, um: 2, so: 0 },
-    // { meetingID: "Bothell_02", aa: 2, um: 3, so: 1 },
-    //],
     Name: null,
     MeetingID: null,
   };
@@ -75,20 +67,20 @@ class GetRecord extends Component {
         const DD = res.data;
 
         console.log(DD);
-        // let data = Object.keys(DD).map((Key) => {
-        //   return {
-        //     Key,
-        //     value: DD[Key],
-        //   };
-        // });
-        let nname = DD[0].name;
-        // let mmeetingID = data[1].value;
+        let data = Object.keys(DD).map((Key) => {
+          return {
+            Key,
+            value: DD[Key],
+          };
+        });
+        let nname = data[0].value;
+        let mmeetingID = data[1].value;
         this.setState({ Name: nname });
-        //this.setState({ MeetingID: mmeetingID });
-        // data.splice(0, 2);
-        // console.log(data);
+        this.setState({ MeetingID: mmeetingID });
+        data.splice(0, 2);
+        console.log(data);
 
-        this.setState({ Data: DD });
+        this.setState({ Data: data });
       })
       .catch((err) => console.log(err));
   }
@@ -105,37 +97,7 @@ class GetRecord extends Component {
             <div>
               <h2>{this.state.Name}</h2>
               <h3>{this.state.MeetingID}</h3>
-              <LineChart
-                width={1000}
-                height={500}
-                data={this.state.Data}
-                margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
-              >
-                <XAxis dataKey="meetingID" />
-                <YAxis />
-                <CartesianGrid strokeDasharray="3 3" />
-                <Tooltip />
-                <Legend />
-                <Line
-                  type="monotone"
-                  dataKey="ah"
-                  stroke="#8884d8"
-                  activeDot={{ r: 8 }}
-                />
-                <Line type="monotone" dataKey="um" stroke="#82ca9d" />
-                <Line type="monotone" dataKey="so" stroke="#00FFFF" />
-                <Line type="monotone" dataKey="but" stroke="#000000" />
-                <Line type="monotone" dataKey="well" stroke="#FF00FF" />
-                <Line type="monotone" dataKey="ok" stroke="#00FF00" />
-                <Line type="monotone" dataKey="falseStart" stroke="#0000FF" />
-                <Line
-                  type="monotone"
-                  dataKey="wordRepititor"
-                  stroke="#FF0000"
-                />
-                <Line type="monotone" dataKey="other" stroke="#FFFF00" />
-              </LineChart>
-              {/* <BarChart width={1000} height={400} data={this.state.Data}>
+              <BarChart width={1000} height={400} data={this.state.Data}>
                 <CartesianGrid strokeDasharray="3 3" />
                 <XAxis datakey="Key" />
 
@@ -143,7 +105,7 @@ class GetRecord extends Component {
                 <Tooltip />
                 <Legend />
                 <Bar dataKey="value" fill="#8884d8" />
-              </BarChart> */}
+              </BarChart>
             </div>
           )}
         </div>
@@ -224,4 +186,8 @@ class GetRecord extends Component {
   }
 }
 
+//const mapStateToProps = (state) => ({});
 export default GetRecord;
+//export default connect(mapStateToProps
+// , {Getrecords}
+//)(GetRecord);

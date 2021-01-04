@@ -65,7 +65,8 @@ export const Getrecords = (userData) => () => {
   axios
     .post("/api/main/getRecord", userData)
     .then((res) => {
-      console.log(res);
+      const DD = res.data;
+      console.log(DD);
       document.getElementById("meet").innerHTML = `MeetingID:`+ res.data.meetingID;
       document.getElementById("name").innerHTML =`Name:`+ res.data.name;
       document.getElementById("ah").innerHTML = `ah:`+res.data.ahCount;

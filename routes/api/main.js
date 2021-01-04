@@ -12,6 +12,7 @@ const validateGetRecordInput = require("../../validation/getRecord");
 const validateParticipantsInput = require("../../validation/participants");
 const validateFillerWordsInput = require("../../validation/fillerWord");
 const user = require("../../models/user");
+const { result } = require("lodash");
 //router.get("/test", (req, res) => res.json({ msg: "Main works" }));
 // @route   POST /api/main
 // @desc    Meeting filler words record
@@ -156,12 +157,10 @@ router.post(
 // @route   GET /api/main/get Participant record
 // @desc    getting record for participant
 // @access  Private
-
 router.post(
   "/getRecord",
   // passport.authenticate("jwt", { session: false }),
   (req, res) => {
-    const meetingID = req.body.meetingID;
     const name = req.body.name;
     let ahCount = 0;
     let umCount = 0;
@@ -172,64 +171,156 @@ router.post(
     let falseStartCount = 0;
     let wordRepititorCount = 0;
     let otherCount = 0;
-    const {errors,  isValid } = validateGetRecordInput(req.body);
+    let temp = {};
+    let result = [];
+    const { errors, isValid } = validateGetRecordInput(req.body);
     if (!isValid) {
       // Return any errors with 400 status
       return res.status(400).json(errors);
     }
-    Main.find({ meetingID, name })
+    Main.find({ name })
       .then((user) => {
         if (!user) {
           return res
             .status(400)
             .json({ name: "This name doesn't have record" });
         } else {
+          let meetingIDArr = [];
           for (let i = 0; i < user.length; i++) {
-            if (user[i].fillerWord === "ah") {
-              ahCount += 1;
-            }
-            if (user[i].fillerWord === "um") {
-              umCount += 1;
-            }
-            if (user[i].fillerWord === "so") {
-              soCount += 1;
-            }
-            if (user[i].fillerWord === "but") {
-              butCount += 1;
-            }
-            if (user[i].fillerWord === "well") {
-              wellCount += 1;
-            }
-            if (user[i].fillerWord === "ok") {
-              okCount += 1;
-            }
-            if (user[i].fillerWord === "falseStart") {
-              falseStartCount += 1;
-            }
-            if (user[i].fillerWord === "wordRepititor") {
-              wordRepititorCount += 1;
-            }
-            if (user[i].fillerWord === "other") {
-              otherCount += 1;
+            if (meetingIDArr.indexOf(user[i].meetingID) === -1) {
+              meetingIDArr.push(user[i].meetingID);
             }
           }
+          
+          for (let j = 0; j < meetingIDArr.length; j++) {
+            for (let k = 0; k < user.length; k++) {
+              if (meetingIDArr[j] === user[k].meetingID) {
+                if (user[k].fillerWord === "ah") {
+                  ahCount += 1;
+                }
+                if (user[k].fillerWord === "um") {
+                  umCount += 1;
+                }
+                if (user[k].fillerWord === "so") {
+                  soCount += 1;
+                }
+                if (user[k].fillerWord === "but") {
+                  butCount += 1;
+                }
+                if (user[k].fillerWord === "well") {
+                  wellCount += 1;
+                }
+                if (user[k].fillerWord === "ok") {
+                  okCount += 1;
+                }
+                if (user[k].fillerWord === "falseStart") {
+                  falseStartCount += 1;
+                }
+                if (user[k].fillerWord === "wordRepititor") {
+                  wordRepititorCount += 1;
+                }
+                if (user[k].fillerWord === "other") {
+                  otherCount += 1;
+                }
+                temp.name = name;
+                temp.meetingID = meetingIDArr[j];
+                temp.ah = ahCount;
+                temp.um = umCount;
+                temp.so = soCount;
+                temp.but = butCount;
+                temp.well = wellCount;
+                temp.ok = okCount;
+                temp.falseStart = falseStartCount;
+                temp.wordRepititor = wordRepititorCount;
+                temp.other = otherCount;
+              }
+             
+            }
+             result.push(temp);
+             temp = {};
+          }
+         
+          console.log(result);
+         
+          return res.status(200).json(result);
         }
-        return res.status(200).json({
-          meetingID: meetingID,
-          name: name,
-          ahCount: ahCount,
-          umCount: umCount,
-          so: soCount,
-          but: butCount,
-          well: wellCount,
-          ok: okCount,
-          falseStart: falseStartCount,
-          wordRepititor: wordRepititorCount,
-          other: otherCount,
-        });
       })
       .catch((err) => console.log(err));
   }
 );
-
 module.exports = router;
+
+// router.post(
+//   "/GetRecord",
+//   // passport.authenticate("jwt", { session: false }),
+//   (req, res) => {
+//     const meetingID = req.body.meetingID;
+//     const name = req.body.name;
+//     let ahCount = 0;
+//     let umCount = 0;
+//     let soCount = 0;
+//     let butCount = 0;
+//     let wellCount = 0;
+//     let okCount = 0;
+//     let falseStartCount = 0;
+//     let wordRepititorCount = 0;
+//     let otherCount = 0;
+//     const { errors, isValid } = validateGetRecordInput(req.body);
+//     if (!isValid) {
+//       // Return any errors with 400 status
+//       return res.status(400).json(errors);
+//     }
+//     Main.find({ meetingID, name })
+//       .then((user) => {
+//         if (!user) {
+//           return res
+//             .status(400)
+//             .json({ name: "This name doesn't have record" });
+//         } else {
+//           for (let i = 0; i < user.length; i++) {
+//             if (user[i].fillerWord === "ah") {
+//               ahCount += 1;
+//             }
+//             if (user[i].fillerWord === "um") {
+//               umCount += 1;
+//             }
+//             if (user[i].fillerWord === "so") {
+//               soCount += 1;
+//             }
+//             if (user[i].fillerWord === "but") {
+//               butCount += 1;
+//             }
+//             if (user[i].fillerWord === "well") {
+//               wellCount += 1;
+//             }
+//             if (user[i].fillerWord === "ok") {
+//               okCount += 1;
+//             }
+//             if (user[i].fillerWord === "falseStart") {
+//               falseStartCount += 1;
+//             }
+//             if (user[i].fillerWord === "wordRepititor") {
+//               wordRepititorCount += 1;
+//             }
+//             if (user[i].fillerWord === "other") {
+//               otherCount += 1;
+//             }
+//           }
+//         }
+//         return res.status(200).json({
+//           meetingID: meetingID,
+//           name: name,
+//           ahCount: ahCount,
+//           umCount: umCount,
+//           so: soCount,
+//           but: butCount,
+//           well: wellCount,
+//           ok: okCount,
+//           falseStart: falseStartCount,
+//           wordRepititor: wordRepititorCount,
+//           other: otherCount,
+//         });
+//       })
+//       .catch((err) => console.log(err));
+//   }
+//);

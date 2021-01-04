@@ -11,13 +11,13 @@ module.exports = function validateGetRecordInput(data) {
   if (isEmpty(data.name)) {
     errors.name = "name is required";
   }
-  if (!Validator.isLength(data.meetingID, { min: 2, max: 40 })) {
-    errors.meetingID = "meetingID needs to between 2 and 40 characters";
-  }
+  // if (!Validator.isLength(data.meetingID, { min: 2, max: 40 })) {
+  //   errors.meetingID = "meetingID needs to between 2 and 40 characters";
+  // }
 
-  if (isEmpty(data.meetingID)) {
-    errors.meetingID = "meetingID is required";
-  }
+  // if (isEmpty(data.meetingID)) {
+  //   errors.meetingID = "meetingID is required";
+  // }
   return {
     errors,
     isValid: isEmpty(errors),

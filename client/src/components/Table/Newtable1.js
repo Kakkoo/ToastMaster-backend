@@ -268,6 +268,7 @@ class Newtable extends Component {
   render() {
     return (
       <div>
+        <div id="chart-container"></div>
         {this.state.loading || !this.state.person ? (
           <div>TABLE...</div>
         ) : (
