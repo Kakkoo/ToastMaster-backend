@@ -52,7 +52,12 @@ export const AddParticipants = (userData, history) => (dispatch) => {
 export const addPlusCount = (userData, history) => (dispatch) => {
   axios
     .post("/api/main/", userData)
-    .then(() => history.push("/table"))
+    .then((res) =>{
+     console.log(res);
+let ID = userData.name + userData.fillerWord;
+console.log(ID);
+     document.getElementById(ID).innerHTML =res.data.count;
+      history.push("/table");})
     .catch((err) =>
       dispatch({
         type: SET_ERROR,

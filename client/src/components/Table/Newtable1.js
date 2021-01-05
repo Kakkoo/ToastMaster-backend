@@ -36,7 +36,7 @@ class Newtable extends Component {
     let header = Object.keys(this.state.fillerwords);
     return header.map((key, index) => {
       return (
-        <th colSpan={2} key={index}>
+        <th colSpan={3} key={index}>
           {key}{" "}
         </th>
       );
@@ -46,7 +46,7 @@ class Newtable extends Component {
     e.preventDefault();
 
     this.props.addPlusCount(plusData, this.props.history);
-    alert("Clicked");
+    //alert("Clicked");
   }
   renderTableData() {
     return this.state.person.map((person, index) => {
@@ -84,6 +84,9 @@ class Newtable extends Component {
           >
             {ah}
           </td>
+          <td id={`${`${name}`}ah`} className={ah}>
+            0
+          </td>
           <td
             onClick={this.plusClicked.bind(this, {
               name: `${name}`,
@@ -103,6 +106,9 @@ class Newtable extends Component {
             })}
           >
             {um}
+          </td>
+          <td id={`${`${name}`}um`} className={um}>
+            0
           </td>
           <td
             onClick={this.plusClicked.bind(this, {
@@ -124,6 +130,9 @@ class Newtable extends Component {
           >
             {so}
           </td>
+          <td id={`${`${name}`}so`} className={so}>
+            0
+          </td>
           <td
             onClick={this.plusClicked.bind(this, {
               name: `${name}`,
@@ -143,6 +152,9 @@ class Newtable extends Component {
             })}
           >
             {but}
+          </td>
+          <td id={`${`${name}`}but`} className={but}>
+            0
           </td>
           <td
             onClick={this.plusClicked.bind(this, {
@@ -164,6 +176,9 @@ class Newtable extends Component {
           >
             {well}
           </td>
+          <td id={`${`${name}`}well`} className={well}>
+            0
+          </td>
           <td
             onClick={this.plusClicked.bind(this, {
               name: `${name}`,
@@ -183,6 +198,9 @@ class Newtable extends Component {
             })}
           >
             {ok}
+          </td>
+          <td id={`${`${name}`}ok`} className={ok}>
+            0
           </td>
           <td
             onClick={this.plusClicked.bind(this, {
@@ -204,6 +222,9 @@ class Newtable extends Component {
           >
             {falseStart}
           </td>
+          <td id={`${`${name}`}falseStart`} className={falseStart}>
+            0
+          </td>
           <td
             onClick={this.plusClicked.bind(this, {
               name: `${name}`,
@@ -224,6 +245,7 @@ class Newtable extends Component {
           >
             {wordRepititor}
           </td>
+          <td id={`${`${name}`}wordRepititor`}>0</td>
           <td
             onClick={this.plusClicked.bind(this, {
               name: `${name}`,
@@ -243,6 +265,9 @@ class Newtable extends Component {
             })}
           >
             {other}
+          </td>
+          <td id={`${`${name}`}other`} className={other}>
+            0
           </td>
           <td
             onClick={this.plusClicked.bind(this, {
@@ -268,6 +293,7 @@ class Newtable extends Component {
   render() {
     return (
       <div>
+        <div id="rect"></div>
         <div id="chart-container"></div>
         {this.state.loading || !this.state.person ? (
           <div>TABLE...</div>
@@ -291,7 +317,7 @@ class Newtable extends Component {
                       </div>
                     </form>
                   </td>
-                  {/* <td id="meetingID">{this.state.date}</td> */}
+
                   {this.renderTableHeader()}
                 </tr>
                 {this.renderTableData()}

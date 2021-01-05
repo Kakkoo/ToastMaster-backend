@@ -13,14 +13,18 @@ const validateParticipantsInput = require("../../validation/participants");
 const validateFillerWordsInput = require("../../validation/fillerWord");
 const user = require("../../models/user");
 const { result } = require("lodash");
+const { count } = require("../../models/Main");
 //router.get("/test", (req, res) => res.json({ msg: "Main works" }));
 // @route   POST /api/main
 // @desc    Meeting filler words record
 // @access  Private
 router.post(
   "/",
-  passport.authenticate("jwt", { session: false }),
+  // passport.authenticate("jwt", { session: false }),
   (req, res) => {
+    const name = req.body.name;
+    const meetingID = req.body.meetingID;
+    const fillerWord = req.body.fillerWord;
     const { errors, isValid } = validateMainInput(req.body);
     if (!isValid) {
       // Return any errors with 400 status
@@ -29,13 +33,29 @@ router.post(
     // Get fields
     const mainFields = {};
     // mainFields.user = req.user.id;
-
     if (req.body.name) mainFields.name = req.body.name;
     if (req.body.fillerWord) mainFields.fillerWord = req.body.fillerWord;
     if (req.body.count) mainFields.count = req.body.count;
     if (req.body.meetingID) mainFields.meetingID = req.body.meetingID;
 
-    new Main(mainFields).save().then((main) => res.json(main));
+    new Main(mainFields).save().then((main) => {
+      //res.json(main);
+      Main.find({ name, meetingID, fillerWord })
+        .then((user) => {
+          if (!user) {
+            return res
+              .status(400)
+              .json({ name: "No record for this meeting ID" });
+          } else {
+            let count = 0;
+            for (let i = 0; i < user.length; i++) {
+              count = count + user[i].count;
+            }
+            return res.status(200).json({ count });
+          }
+        })
+        .catch();
+    });
   }
 );
 // @route   POST /api/main/add Participants
@@ -76,13 +96,12 @@ router.get(
       if (!participants) {
         return res.status(400).json({ name: "No participants" });
       }
-      console.log("till here");
+
       let names = [];
       for (let i = 0; i < participants.length; i++) {
         names.push(participants[i].name);
       }
       return res.status(200).json(participants);
-      //return res.status(200).json(names);
     });
   }
 );
@@ -106,7 +125,6 @@ router.get(
       }
 
       return res.status(200).json(meetingIDs);
-      //return res.status(200).json(names);
     });
   }
 );
@@ -191,7 +209,7 @@ router.post(
               meetingIDArr.push(user[i].meetingID);
             }
           }
-          
+
           for (let j = 0; j < meetingIDArr.length; j++) {
             for (let k = 0; k < user.length; k++) {
               if (meetingIDArr[j] === user[k].meetingID) {
@@ -234,15 +252,38 @@ router.post(
                 temp.wordRepititor = wordRepititorCount;
                 temp.other = otherCount;
               }
-             
             }
-             result.push(temp);
-             temp = {};
+            result.push(temp);
+            temp = {};
           }
-         
+
           console.log(result);
-         
+
           return res.status(200).json(result);
+        }
+      })
+      .catch((err) => console.log(err));
+  }
+);
+router.post(
+  "/getWordCount",
+  // passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    const name = req.body.name;
+    const meetingID = req.body.meetingID;
+    const fillerWord = req.body.fillerWord;
+    Main.find({ name, meetingID, fillerWord })
+      .then((user) => {
+        if (!user) {
+          return res
+            .status(400)
+            .json({ name: "No record for this meeting ID" });
+        } else {
+          let count = 0;
+          for (let i = 0; i < user.length; i++) {
+            count = count + user[i].count;
+          }
+          return res.status(200).json({ count });
         }
       })
       .catch((err) => console.log(err));
