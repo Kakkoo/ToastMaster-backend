@@ -4,6 +4,9 @@ Filler Word Counter. User can keep track of Filler Words (ah, um, so , ok....) i
 
 I built all aspects of this application, from the databases to the APIs, from the ground up. Features include responsive design, JWTToken authentication, password encryption,  and more. Data is passed between components utilizing Redux store.
 
+## Video
+video walkthrough (https://youtu.be/Gv2ybPYyv4c)
+
 ## See it Deployed
 Deployed via Heroku at [Filler Words Counter](https://whispering-fjord-08994.herokuapp.com/)
 
