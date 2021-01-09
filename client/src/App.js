@@ -20,7 +20,7 @@ import store from './store';
 import Getrecord from "./components/getrecord/Getrecord";
 import Addnames from "./components/addnames/Addnames";
 import Removename from "./components/removename/Removename";
-
+import Facebook from "./components/facebook/Facebook";
 if (localStorage.jwtToken) {
   //decode
   const decoded = jwt_decode(localStorage.jwtToken);
@@ -53,6 +53,7 @@ class App extends Component {
             <Route exact path="/" component={Landing} />
             <Route exact path="/register" component={Register} />
             <Route exact path="/login" component={Login} />
+            <Route exact path="/facebook" component={Facebook} />
             <Route exact path="/forgotPassword" component={ForgotPassword} />
             <Route exact path="/not-found" component={NotFound} />
             <Switch>

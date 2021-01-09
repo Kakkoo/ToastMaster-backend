@@ -14,6 +14,7 @@ export const registerUser = (userData, history) => (dispatch) => {
       })
     );
 };
+
 export const loginUser = (userData) => (dispatch) => {
   axios
     .post("/api/users/login", userData)
@@ -34,7 +35,7 @@ export const loginUser = (userData) => (dispatch) => {
     .catch((err) =>
       dispatch({
         type: SET_ERROR,
-        //payload: err.response.data,
+        payload: err.response.data,
       })
     );
 };

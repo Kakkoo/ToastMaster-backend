@@ -3,9 +3,6 @@ import classnames from "classnames";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
-
-//import Facebook from '../Facebook';
-//import ForgotPassword from './ForgotPassword';
 import { loginUser } from "../../actions/authActions";
 
 class Login extends Component {
@@ -104,6 +101,14 @@ class Login extends Component {
                   >
                     Submit
                   </button>
+                  <Link to="/facebook">
+                    <button
+                      type="button"
+                      className="btn btn-default btn-lg btn-block"
+                    >
+                      Facebook Authentication
+                    </button>
+                  </Link>
                   <Link to="/forgotPassword">
                     <button
                       type="button"

@@ -4,11 +4,12 @@ const gravatar = require("gravatar");
 const nodemailer = require("nodemailer");
 const lodash = require("lodash");
 const user = require("../../models/user");
-//const facebookUser = require("../../models/FacebookUser");
+
 const jwt = require("jsonwebtoken");
 const passport = require("passport");
 const keys = require("../../config/keys");
 const validateRegisterInput = require("../../validation/register");
+
 const validateLoginInput = require("../../validation/login");
 const router = express.Router();
 
@@ -17,7 +18,6 @@ const router = express.Router();
 // @access  Public
 router.post("/register", (req, res) => {
   const { errors, isValid } = validateRegisterInput(req.body);
-  
 
   if (!isValid) {
     return res.status(400).json(errors);
@@ -57,6 +57,7 @@ router.post("/register", (req, res) => {
     .catch((err) => console.log(err));
 });
 
+
 // @route   POST /api/users/login
 // @desc    Login user
 // @access  Public
@@ -72,9 +73,7 @@ router.post("/login", (req, res) => {
   //Find a user with the email
   User.findOne({ email })
     .then((user) => {
-      if (!user) 
-        return res.status(404).json({ email: "User not found" });
-      
+      if (!user) return res.status(404).json({ email: "User not found" });
 
       // Check password
       bcrypt
@@ -143,17 +142,14 @@ router.post("/forgotPassword", (req, res) => {
             });
           });
         });
-        var transporter = nodemailer.createTransport(
-          keys.smtp
-        );
+        var transporter = nodemailer.createTransport(keys.smtp);
 
         // setup e-mail data with unicode symbols
         var mailOptions = {
           from: req.body.name + req.body.email, // sender address
           to: email, // list of receivers
           subject: "Temporary password", // Subject line
-          text:
-           "Temporary Password :" + newPassword
+          text: "Temporary Password :" + newPassword,
         };
 
         // send mail with defined transport object
@@ -180,7 +176,7 @@ router.post(
     const email = req.body.email;
     const oldPassword = req.body.password;
     let newPassword = req.body.newPassword;
-    
+
     User.findOne({ email })
       .then((user) => {
         if (!user) {
@@ -233,25 +229,23 @@ router.post(
 //@route   POST /api/users/facebookUser
 //@desc    register facebook user
 //@access  Public
-router.post("/facebookRegister", (req, res) => {
-  
-
-  User.findOne({ femail: req.body.femail })
-    .then((user) => {
-      if (!user) {
-          const newfacebookUser = new facebookUser({
-          name: req.body.name,
-          femail: req.body.femail,
-          avatar,
-          password: req.body.password,
-        });
-            newfacebookUser
-              .save()
-              .then((user) => res.json(user))
-              .catch((err) => console.log(err));  
-      }
-    })
-    .catch((err) => console.log(err));
-});
+// router.post("/facebookRegister", (req, res) => {
+//   User.findOne({ femail: req.body.femail })
+//     .then((user) => {
+//       if (!user) {
+//         const newfacebookUser = new facebookUser({
+//           name: req.body.name,
+//           femail: req.body.femail,
+//           avatar,
+//           password: req.body.password,
+//         });
+//         newfacebookUser
+//           .save()
+//           .then((user) => res.json(user))
+//           .catch((err) => console.log(err));
+//       }
+//     })
+//     .catch((err) => console.log(err));
+// });
 
 module.exports = router;

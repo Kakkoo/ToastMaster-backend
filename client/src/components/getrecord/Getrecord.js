@@ -17,7 +17,7 @@ class GetRecord extends Component {
   state = {
     loading: true,
     person: null,
-    Meeting: null,
+    // Meeting: null,
     Data: null,
     Name: null,
     MeetingID: null,
@@ -46,10 +46,10 @@ class GetRecord extends Component {
     names = names.join(".......");
     this.setState({ person: names, loading: false });
 
-    const URL = "./api/main/allMeetingIDs";
-    const Response = await fetch(URL);
-    const Data = await Response.json();
-    this.setState({ Meeting: Data, loading: false });
+    // const URL = "./api/main/allMeetingIDs";
+    // const Response = await fetch(URL);
+    // const Data = await Response.json();
+    // this.setState({ Meeting: Data, loading: false });
   }
   onChange(e) {
     this.setState({ [e.target.name]: e.target.value });
@@ -125,32 +125,10 @@ class GetRecord extends Component {
             <h4>{this.state.person}</h4>
           </div>
         )}
-        <div>
-          {" "}
-          {this.state.loading || !this.state.Meeting ? (
-            <div>loading...</div>
-          ) : (
-            <div>
-              <h4>{this.state.Meeting}</h4>
-            </div>
-          )}
-        </div>
-        <div id="DATA"></div>
-        <div id="meet"></div>
-        <div id="name"></div>
-        <div id="ah"></div>
-        <div id="um"></div>
-        <div id="so"></div>
-        <div id="but"></div>
-        <div id="well"></div>
-        <div id="ok"></div>
-        <div id="false"></div>
-        <div id="word"></div>
-        <div id="other"></div>
         <div className="container">
           <div className="row">
             <div className="col-md-8 m-auto">
-              <h2 className="display-5 text-center">Get Records</h2>
+              <h2 className="display-5 text-center">Get graphical view </h2>
               <p className="lead text-center"></p>
               <form noValidate onSubmit={this.onSubmit}>
                 <div className="form-group">
@@ -168,21 +146,6 @@ class GetRecord extends Component {
                     <div className="invalid-feedback">{errors.name}</div>
                   )}
                 </div>
-                {/* <div className="form-group">
-                  <input
-                    type="meetingID"
-                    className={classnames("form-control form-control-lg", {
-                      "is-invalid": errors.meetingID,
-                    })}
-                    placeholder="meetingID"
-                    name="meetingID"
-                    value={this.state.meetingID}
-                    onChange={this.onChange}
-                  />
-                  {errors.meetingID && (
-                    <div className="invalid-feedback">{errors.meetingID}</div>
-                  )}
-                </div> */}
 
                 <input type="submit" className="btn btn-info btn-block mt-4" />
               </form>

@@ -9,7 +9,7 @@ class navbar extends Component {
     this.props.logoutUser();
   }
   render() {
-    const { isAuthenticated } = this.props.auth;
+    const { isAuthenticated, user } = this.props.auth;
     const guestLinks = (
       <ul className="navbar-nav ml-auto">
         <li className="nav-item nav">
@@ -37,7 +37,22 @@ class navbar extends Component {
             <i className="fa fa-cog">Settings</i>
           </Link>
         </li>
-
+        <li className="nav-item nav">
+          <Link
+            className="nav-link"
+            to="/table"
+            id="nav-img"
+            data-toggle="tooltip"
+            title="Your Profile"
+          >
+            <img
+              className="rounded-circle"
+              src={user.avatar}
+              alt={user.name}
+              style={{ width: "1.5em" }}
+            />
+          </Link>
+        </li>
         <li className="nav-item nav">
           <button
             onClick={this.onLogoutClick.bind(this)}
