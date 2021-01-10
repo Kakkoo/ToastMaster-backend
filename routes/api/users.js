@@ -9,6 +9,7 @@ const jwt = require("jsonwebtoken");
 const passport = require("passport");
 const keys = require("../../config/keys");
 const validateRegisterInput = require("../../validation/register");
+const validatefRegisterInput = require("../../validation/fRegister");
 
 const validateLoginInput = require("../../validation/login");
 const router = express.Router();
@@ -56,7 +57,67 @@ router.post("/register", (req, res) => {
     })
     .catch((err) => console.log(err));
 });
+router.post("/Fregister", (req, res) => {
+  const { errors, isValid } = validatefRegisterInput(req.body);
 
+  if (!isValid) {
+    return res.status(400).json(errors);
+  }
+
+  User.findOne({ userID: req.body.userID })
+    .then((user) => {
+      if (user) {
+        // const payload = {
+        //   id: user.id,
+        //   name: user.name,
+        //   avatar: user.avatar,
+        // };
+
+        // //sign token
+        // jwt.sign(
+        //   payload,
+        //   keys.secretOrKey,
+        //   { expiresIn: 3600 },
+        //   (err, token) => {
+          const accessToken = user.accessToken;
+            return res.json({ token: "Bearer " + accessToken });
+        //   }
+        // );
+      } else {
+        const newUser = new User({
+          name: req.body.name,
+          email: req.body.email,
+          avatar: req.body.avatar,
+          accessToken: req.body.accessToken,
+          signedRequest: req.body.signedRequest,
+          userID: req.body.userID,
+        });
+
+        newUser
+          .save()
+          .then((user) => {
+              // const payload = {
+              //   id: user.id,
+              //   name: user.name,
+              //   avatar: user.avatar,
+              // };
+
+              // //sign token
+              // jwt.sign(
+              //   payload,
+              //   keys.secretOrKey,
+              //   { expiresIn: 3600 },
+              //   (err, token) => {
+                  const accessToken = user.accessToken;
+                  return res.json({ token: "Bearer " + accessToken });
+              //   }
+              // );
+          })
+          .catch((err) => console.log(err));
+      }
+    })
+    .catch((err) => console.log(err));
+});
 
 // @route   POST /api/users/login
 // @desc    Login user

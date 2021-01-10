@@ -14,7 +14,25 @@ export const registerUser = (userData, history) => (dispatch) => {
       })
     );
 };
+export const Fregister = (userData) => (dispatch) => {
+  axios
+    .post("/api/users/Fregister", userData)
+    .then((res) => {
+      //save the token to localstorage
+     // const { token } = res.data;
+      console.log(res.data.token);
+      return res.data.token;
+     // localStorage.setItem("jwtToken", token);
+      //set token to auth header
+      //setAuthToken(token);
+      //decode token
+      //const decoded = jwt_decode(token);
+      //Write user info to redux
 
+      //history.push("/Table");
+    })
+    .catch();
+};
 export const loginUser = (userData) => (dispatch) => {
   axios
     .post("/api/users/login", userData)
@@ -53,12 +71,13 @@ export const AddParticipants = (userData, history) => (dispatch) => {
 export const addPlusCount = (userData, history) => (dispatch) => {
   axios
     .post("/api/main/", userData)
-    .then((res) =>{
-     console.log(res);
-let ID = userData.name + userData.fillerWord;
-console.log(ID);
-     document.getElementById(ID).innerHTML =res.data.count;
-      history.push("/table");})
+    .then((res) => {
+      console.log(res);
+      let ID = userData.name + userData.fillerWord;
+      console.log(ID);
+      document.getElementById(ID).innerHTML = res.data.count;
+      history.push("/table");
+    })
     .catch((err) =>
       dispatch({
         type: SET_ERROR,
@@ -84,7 +103,7 @@ console.log(ID);
 //       document.getElementById("false").innerHTML = `falseStart:` + res.data.falseStart;
 //       document.getElementById("word").innerHTML = `wordRepititor:` + res.data.wordRepititor;
 //       document.getElementById("other").innerHTML = `other:` + res.data.other;
-     
+
 //     })
 //     .catch(
 //       (err) => console.log(err)

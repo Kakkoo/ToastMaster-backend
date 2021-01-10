@@ -13,7 +13,7 @@ const UserSchema = new Schema({
   },
   password: {
     type: String,
-     required: true,
+     //required: true,
   },
   avatar: {
     type: String,
@@ -27,6 +27,15 @@ const UserSchema = new Schema({
     type: Date,
     default: Date.now,
   },
+  accessToken: {
+    type: String,
+  },
+  signedRequest: {
+    type: String,
+  },
+  userID: {
+    type: String
+  }
 
 });
 
