@@ -43,5 +43,5 @@ mongoose
   .catch((err) => console.log(err));
 
 //Passport configuration
-//app.use(passport.initialize());
-//require("./config/passport")(passport);
+app.use(passport.initialize());
+require("./config/passport")(passport);

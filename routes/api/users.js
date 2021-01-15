@@ -67,51 +67,51 @@ router.post("/Fregister", (req, res) => {
   User.findOne({ userID: req.body.userID })
     .then((user) => {
       if (user) {
-        // const payload = {
-        //   id: user.id,
-        //   name: user.name,
-        //   avatar: user.avatar,
-        // };
+        const payload = {
+          id: user.id,
+          name: user.name,
+          avatar: user.avatar,
+        };
 
-        // //sign token
-        // jwt.sign(
-        //   payload,
-        //   keys.secretOrKey,
-        //   { expiresIn: 3600 },
-        //   (err, token) => {
-          const accessToken = user.accessToken;
-            return res.json({ token: "Bearer " + accessToken });
-        //   }
-        // );
+        //sign token
+        jwt.sign(
+          payload,
+          keys.secretOrKey,
+          { expiresIn: 3600 },
+          (err, token) => {
+          //const accessToken = user.accessToken;
+            return res.json({ token: "Bearer " + token });
+          }
+        );
       } else {
         const newUser = new User({
           name: req.body.name,
           email: req.body.email,
           avatar: req.body.avatar,
-          accessToken: req.body.accessToken,
-          signedRequest: req.body.signedRequest,
+         //accessToken: req.body.accessToken,
+          //signedRequest: req.body.signedRequest,
           userID: req.body.userID,
         });
 
         newUser
           .save()
           .then((user) => {
-              // const payload = {
-              //   id: user.id,
-              //   name: user.name,
-              //   avatar: user.avatar,
-              // };
+              const payload = {
+                id: user.id,
+                name: user.name,
+                avatar: user.avatar,
+              };
 
-              // //sign token
-              // jwt.sign(
-              //   payload,
-              //   keys.secretOrKey,
-              //   { expiresIn: 3600 },
-              //   (err, token) => {
-                  const accessToken = user.accessToken;
-                  return res.json({ token: "Bearer " + accessToken });
-              //   }
-              // );
+              //sign token
+              jwt.sign(
+                payload,
+                keys.secretOrKey,
+                { expiresIn: 3600 },
+                (err, token) => {
+                  //const accessToken = user.accessToken;
+                   return res.json({ token: "Bearer " + token });
+                }
+              );
           })
           .catch((err) => console.log(err));
       }

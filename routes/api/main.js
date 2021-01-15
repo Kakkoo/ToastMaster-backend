@@ -1,5 +1,7 @@
 const express = require("express");
 const router = express.Router();
+const nodemailer = require("nodemailer");
+const lodash = require("lodash");
 const Main = require("../../models/Main");
 const Participants = require("../../models/Participants");
 const FillerWords = require("../../models/FillerWords");
@@ -8,6 +10,7 @@ const mongoose = require("mongoose");
 const passport = require("passport");
 const keys = require("../../config/keys");
 const validateMainInput = require("../../validation/main");
+const validateEmail = require("../../validation/emailValidation");
 const validateGetRecordInput = require("../../validation/getRecord");
 const validateParticipantsInput = require("../../validation/participants");
 const validateFillerWordsInput = require("../../validation/fillerWord");
@@ -83,6 +86,46 @@ router.post(
         .then((participant) => res.json(participant))
         .catch();
     });
+  }
+);
+// @route   POST /api/main/sendemail
+// @desc    sending data via email
+// @access  Private
+router.post(
+  "/sendemail",
+  //passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    const { errors, isValid } = validateEmail(req.body);
+    if (!isValid) {
+      // Return any errors with 400 status
+      return res.status(400).json(errors);
+    }
+    // Get fields
+    const email = req.body.email;
+    const data = req.body.Data;
+    
+    console.log(email);
+    console.log(data);
+   var transporter = nodemailer.createTransport(keys.smtp);
+
+   // setup e-mail data with unicode symbols
+   var mailOptions = {
+     from: req.body.name + req.body.email, // sender address
+     to: email, // list of receivers
+     subject: "Data for all meetingIds", // Subject line
+     text: "Data:" + data,
+   };
+
+   // send mail with defined transport object
+   transporter.sendMail(mailOptions, function (error, info) {
+     if (!error) {
+       res.send("Email sent");
+     } else {
+       res.send("Failed, error : ");
+     }
+     transporter.close();
+     console.log("Message sent: " + info.response);
+   });
   }
 );
 // @route   GET /api/main/allParticipants

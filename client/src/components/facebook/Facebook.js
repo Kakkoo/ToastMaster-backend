@@ -1,9 +1,10 @@
 import React, { Component } from "react";
 import FacebookLoginBtn from "react-facebook-login";
-import setAuthToken from "../../utils/setAuthToken";
-//import { connect } from "react-redux";
-//import PropTypes from "prop-types";
-//import {Fregister} from "../../actions/authActions";
+//import setAuthToken from "../../utils/setAuthToken";
+
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
+import {Fregister} from "../../actions/authActions";
 class LoginFacebook extends Component {
   state = {
     auth: false,
@@ -32,35 +33,36 @@ class LoginFacebook extends Component {
         signedRequest: response.signedRequest,
         userID: response.userID,
       });
-      // const newUser = {
-      //   name: this.state.name,
-      //   avatar: this.state.avatar,
-      //   email: this.state.email,
-      //   accessToken: this.state.accessToken,
-      //   signedRequest: this.state.signedRequest,
-      //   userID: this.state.userID,
-      // };
-      //this.props.Fregister(newUser);
+      const newUser = {
+        name: this.state.name,
+        avatar: this.state.avatar,
+        email: this.state.email,
+        accessToken: this.state.accessToken,
+        signedRequest: this.state.signedRequest,
+        userID: this.state.userID,
+      };
+      this.props.Fregister(newUser);
     }
   };
-   componentWillUnmount() {
-     //set token to auth header
+  //  componentWillUnmount() {
+  //    //set token to auth header
     
-     if (this.state.accessToken) {
-       const token = this.state.accessToken;
-        setAuthToken(token);
-       this.props.history.push("/table");
-     }
-   }
- // componentWillReceiveProps(_nextProps) {
+  //    if (this.state.accessToken) {
+  //      const token = this.state.accessToken;
+  //       localStorage.setItem("jwtToken", token);
+  //       setAuthToken(token);
+  //      this.props.history.push("/table");
+  //    }
+  //  }
+ componentWillReceiveProps(nextProps) {
    
-   // if (nextProps.auth.isAuthenticated) {
-     
-   // }
-    // if (nextProps.errors) {
-    //   this.setState({ errors: nextProps.errors });
-    // }
- // }
+   if (nextProps.auth.isAuthenticated) {
+      this.props.history.push("/table");
+   }
+    if (nextProps.errors) {
+      this.setState({ errors: nextProps.errors });
+    }
+ }
 
   render() {
     let facebookData;
@@ -89,18 +91,18 @@ class LoginFacebook extends Component {
     return <>{facebookData}</>;
   }
 }
-//LoginFacebook.propTypes = {
-  //loginUser: PropTypes.func.isRequired,
+LoginFacebook.propTypes = {
+  Fregister: PropTypes.func.isRequired,
   //errors: PropTypes.object.isRequired,
-  //auth: PropTypes.object.isRequired,
-//};
+  auth: PropTypes.object.isRequired,
+};
 
-//const mapStateToProps = (state) => ({
+const mapStateToProps = (state) => ({
   //errors: state.errors,
-  //auth: state.auth,
-//});
+  auth: state.auth,
+});
 
-//export default connect(mapStateToProps, { Fregister })(LoginFacebook);
-export default LoginFacebook;
+export default connect(mapStateToProps, { Fregister })(LoginFacebook);
+//export default LoginFacebook;
 
 

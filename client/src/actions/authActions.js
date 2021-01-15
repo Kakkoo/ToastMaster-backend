@@ -19,16 +19,19 @@ export const Fregister = (userData) => (dispatch) => {
     .post("/api/users/Fregister", userData)
     .then((res) => {
       //save the token to localstorage
-     // const { token } = res.data;
+      const { token } = res.data;
       console.log(res.data.token);
-      return res.data.token;
-     // localStorage.setItem("jwtToken", token);
+      //return res.data.token;
+      localStorage.setItem("jwtToken", token);
       //set token to auth header
-      //setAuthToken(token);
+      setAuthToken(token);
       //decode token
-      //const decoded = jwt_decode(token);
+      const decoded = jwt_decode(token);
       //Write user info to redux
-
+      dispatch({
+        type: SET_USER,
+        payload: decoded,
+      });
       //history.push("/Table");
     })
     .catch();

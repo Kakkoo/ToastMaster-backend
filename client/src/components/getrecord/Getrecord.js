@@ -17,7 +17,6 @@ class GetRecord extends Component {
   state = {
     loading: true,
     person: null,
-    // Meeting: null,
     Data: null,
     Name: null,
     MeetingID: null,
@@ -30,6 +29,13 @@ class GetRecord extends Component {
       name: "",
       meetingID: "",
       errors: {},
+      email: "",
+
+      loading: true,
+      person: null,
+      Data: null,
+      Name: null,
+      MeetingID: null,
     };
 
     this.onChange = this.onChange.bind(this);
@@ -44,6 +50,8 @@ class GetRecord extends Component {
       names.push(data[i].name);
     }
     names = names.join(".......");
+    // this.state.person = names;
+    // this.state.loading = false;
     this.setState({ person: names, loading: false });
 
     // const URL = "./api/main/allMeetingIDs";
@@ -61,16 +69,32 @@ class GetRecord extends Component {
       name: this.state.name,
       meetingID: this.state.meetingID,
     };
-    axios
-      .post(`/api/main/getRecord`, participant)
-      .then((res) => {
-        const DD = res.data;
-        console.log(DD);
-        let nname = DD[0].name;
-        this.setState({ Name: nname });
-        this.setState({ Data: DD });
-      })
-      .catch((err) => console.log(err));
+    const emailData = {
+      email: this.state.email,
+      Data: this.state.Data,
+    }
+    if (emailData.email === "") {
+      axios
+        .post(`/api/main/getRecord`, participant)
+        .then((res) => {
+          const DD = res.data;
+          console.log(DD);
+          let nname = DD[0].name;
+
+          this.setState({ Name: nname });
+          this.setState({ Data: DD });
+        })
+        .catch((err) => console.log(err));
+    }
+    if(emailData.email !== "")
+    {
+       axios
+         .post(`/api/main/sendemail`, emailData)
+         .then((res) => {
+           res.json();
+         })
+         .catch((err) => console.log(err));
+    }
   }
   render() {
     const { errors } = this.state;
@@ -114,6 +138,41 @@ class GetRecord extends Component {
                 />
                 <Line type="monotone" dataKey="other" stroke="#FFFF00" />
               </LineChart>
+              <div className="container">
+                <div className="row">
+                  <div className="col-md-8 m-auto">
+                    <h2 className="display-5 text-center">
+                      send data via email{" "}
+                    </h2>
+                    <p className="lead text-center"></p>
+                    <form noValidate onSubmit={this.onSubmit}>
+                      <div className="form-group">
+                        <input
+                          type="eamil"
+                          className={classnames(
+                            "form-control form-control-lg",
+                            {
+                              "is-invalid": errors.email,
+                            }
+                          )}
+                          placeholder="email"
+                          name="email"
+                          value={this.state.email}
+                          onChange={this.onChange}
+                        />
+                        {errors.email && (
+                          <div className="invalid-feedback">{errors.email}</div>
+                        )}
+                      </div>
+
+                      <input
+                        type="submit"
+                        className="btn btn-info btn-block mt-4"
+                      />
+                    </form>
+                  </div>
+                </div>
+              </div>
             </div>
           )}
         </div>
