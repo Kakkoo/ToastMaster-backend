@@ -32,6 +32,12 @@ class settings extends Component {
                   Get Record &nbsp;&nbsp;&nbsp;
                 </Link>
               </div>
+              <div className="btn-group mb-4" role="group">
+                <Link to="/adaptiveCard" className="btn btn-light">
+                  <i className="fas fa-user-circle text-info mr-1 dashboard-icon" />{" "}
+                  Adaptive Card &nbsp;&nbsp;&nbsp;
+                </Link>
+              </div>
             </div>
           </div>
         </div>

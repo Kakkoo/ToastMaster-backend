@@ -18,6 +18,7 @@ import Login from './components/auth/Login';
 import Newtable1 from './components/Table/Newtable1';
 import store from './store';
 import Getrecord from "./components/getrecord/Getrecord";
+import Adaptivecard from "./components/adaptiveCard/Adaptivecard";
 import Addnames from "./components/addnames/Addnames";
 import Removename from "./components/removename/Removename";
 import Facebook from "./components/facebook/Facebook";
@@ -71,6 +72,9 @@ class App extends Component {
             </Switch>
             <Switch>
               <PrivateRoute exact path="/getrecord" component={Getrecord} />
+            </Switch>
+            <Switch>
+              <PrivateRoute exact path="/adaptiveCard" component={Adaptivecard} />
             </Switch>
             <Footer />
           </div>

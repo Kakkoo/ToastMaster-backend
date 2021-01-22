@@ -17,6 +17,7 @@ const validateFillerWordsInput = require("../../validation/fillerWord");
 const user = require("../../models/user");
 const { result } = require("lodash");
 const { count } = require("../../models/Main");
+
 //router.get("/test", (req, res) => res.json({ msg: "Main works" }));
 // @route   POST /api/main
 // @desc    Meeting filler words record
@@ -103,29 +104,91 @@ router.post(
     // Get fields
     const email = req.body.email;
     const data = req.body.Data;
-    
+
     console.log(email);
     console.log(data);
-   var transporter = nodemailer.createTransport(keys.smtp);
 
-   // setup e-mail data with unicode symbols
-   var mailOptions = {
-     from: req.body.name + req.body.email, // sender address
-     to: email, // list of receivers
-     subject: "Data for all meetingIds", // Subject line
-     text: "Data:" + data,
-   };
+    var transporter = nodemailer.createTransport(keys.smtp);
 
-   // send mail with defined transport object
-   transporter.sendMail(mailOptions, function (error, info) {
-     if (!error) {
-       res.send("Email sent");
-     } else {
-       res.send("Failed, error : ");
-     }
-     transporter.close();
-     console.log("Message sent: " + info.response);
-   });
+    function TableHeader() {
+      let Header = Object.keys(data[0]);
+      let header = Header.splice(1, Header.length);
+      return header.map((key, index) => {
+        return `<th key=${index}>
+            ${key}
+          </th>`;
+      });
+    }
+    function TableData() {
+      return data.map((person, index) => {
+        const {
+          meetingID,
+          ah,
+          um,
+          so,
+          but,
+          well,
+          ok,
+          falseStart,
+          wordRepititor,
+          other,
+        } = person; //destructuring
+        return ` <tr 
+          key=${meetingID}>
+            <td>${meetingID}</td>
+            '<td>${ah}</td>
+            '<td>${um}</td>
+            '<td>${so}</td>
+            '<td>${but}</td>
+            '<td>${well}</td>
+            '<td>${ok}</td>
+            '<td>${falseStart}</td>
+            '<td>${wordRepititor}</td>
+            '<td>${other}</td>
+          </tr>`;
+      });
+    }
+
+    let htmlTemplate = `
+<!DOCTYPE html>
+<html>
+<body>
+
+<h4 style="color: #072975;">Hello ${data[0].name}</h4>
+<p style="color: #072975;">Here is your Filler Words Counter Report from Toastmasters International</p>
+ <table id="students" border= "2px" style="color: #072975; background-color: #E9EFEF; border-color: white;">
+              <tbody>
+                <tr>
+                 ${TableHeader()}
+                </tr>
+                ${TableData()}
+              </tbody>
+            </table>
+            <img style="display: inline; margin: 0 5px;" title="Toastmasters_logo" src="./img/toastmastersLogo1.jpg" alt="Logo" width="150" height="150" />
+            <h2 style="color:#072975;">Relax, present confidently</h2>
+<h3 style="color: #072975;">Improve your public speaking skill through Toastmasters</h3>
+</body>
+</html>
+`;
+
+    // setup e-mail data with unicode symbols
+    var mailOptions = {
+      from: req.body.name + req.body.email, // sender address
+      to: email, // list of receivers
+      subject: "Data for all meetingIds", // Subject line
+      html: htmlTemplate,
+    };
+
+    // send mail with defined transport object
+    transporter.sendMail(mailOptions, function (error, info) {
+      if (!error) {
+        res.send("Email sent");
+      } else {
+        res.send("Failed, error : ");
+      }
+      transporter.close();
+      console.log("Message sent: " + info.response);
+    });
   }
 );
 // @route   GET /api/main/allParticipants
